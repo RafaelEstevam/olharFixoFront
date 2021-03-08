@@ -50,6 +50,6 @@
   },
   "devDependencies": {
     "babel-eslint": "10.1.0",
-    "env-cmd": "^10.1.0",
+    "env-cmd": "^10.1.0"
   }
 }
