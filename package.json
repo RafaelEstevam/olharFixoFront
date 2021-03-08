@@ -30,12 +30,6 @@
     "start:local": "env-cmd -f .env.local react-scripts start",
     "start:prod": "env-cmd -f .env.production react-scripts start"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -49,7 +43,5 @@
     ]
   },
   "devDependencies": {
-    "babel-eslint": "10.1.0",
-    "env-cmd": "^10.1.0"
   }
 }
