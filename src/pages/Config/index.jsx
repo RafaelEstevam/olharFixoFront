@@ -9,14 +9,15 @@ import {
   Typography,
   makeStyles
 } from '@material-ui/core';
-import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
-import {Link as Linked} from 'react-router-dom';
-import { ColorPicker } from 'material-ui-color';
+// import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
+// import {Link as Linked} from 'react-router-dom';
+// import { ColorPicker } from 'material-ui-color';
 import API from '../../services/api';
 
 function Login() {
 
-  const [domain] = useState(window.location.hostname);
+  const [id, setId] = useState('')
+  const [domain] = useState(window.location.origin);
   const [logo, setLogo] = useState('');
   const [main_color, setMainColor] = useState('');
   const [second_color, setSecondColor] = useState('');
@@ -24,14 +25,25 @@ function Login() {
   const handleSubmit = async (e) =>{
     e.preventDefault();
     const data = {domain, logo, main_color, second_color};
-    await API.put(`/config/${domain}`, data).then((response) => {
-      console.log(response);
-    })
+    if(!id){
+      await API.post(`/config`, data).then((response) => {
+        console.log(response);
+      })
+    }else{
+
+      data.id = id;
+      await API.put(`/config/${id}`, data).then((response) => {
+        console.log(response);
+      })
+    }
+    
   }
 
-  const handleMainColor = (e) =>{
-    setMainColor(e.target.value)
-  }
+  useEffect(() => {
+    API.post(`/config/get`, {domain: domain}).then((response) => {
+      setId(response.data._id);
+    })
+  }, [])
 
   return (
     <div title="Login">
