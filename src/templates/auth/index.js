@@ -1,20 +1,32 @@
 import React from 'react';
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  Card,
+  CardContent,
+  Link,
+  TextField,
+  Typography,
+  makeStyles
+} from '@material-ui/core';
 import styled from 'styled-components';
 
-const AuthWrapper = styled('div')`
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+const LoginWrapper = styled(Grid)`
+  background: #ccc;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `
 function TemplateAuth({children}) {
   return (
-    <AuthWrapper>
-      <div>
+    <Grid container>
+      <LoginWrapper item md={3} xs={12} >
         {children}
-      </div>
-    </AuthWrapper>
+      </LoginWrapper>
+    </Grid>
   );
 }
 
