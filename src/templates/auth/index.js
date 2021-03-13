@@ -23,7 +23,7 @@ const LoginWrapper = styled(Grid)`
 function TemplateAuth({children}) {
   return (
     <Grid container>
-      <LoginWrapper item md={3} xs={12} >
+      <LoginWrapper item md={3} xs={12} className="main_background" >
         {children}
       </LoginWrapper>
     </Grid>

@@ -7,30 +7,48 @@ import { CircularProgress } from '@material-ui/core/'
 import Routes from './routes';
 import history from './services/history';
 import API from './services/api';
+import {GetLocalConfig, SetDefaultConfig, GetTheme, GetDefaultTheme} from './services/theme';
 
-import GlobalStyle from './styles/global'
+import GlobalStyle from './styles/global';
 
 function App() {
 
   const [loaded, setLoaded] = useState(true);
   const [domain] = useState(window.location.origin);
+  const [defaultTheme, setDefaultTheme] = useState(false);
+  const [themeStyles, setThemeStyles] = useState(false);
 
   useEffect(() => {
 
     const data = {domain: domain}
 
-    API.post('/config/get', data ).then((response) => {
-      setLoaded(false);
-    }).catch((err) => {
-      console.log(err);
-    })
+    if(!GetLocalConfig()){
+      API.post('/config/get', data ).then((response) => {
 
+        localStorage.setItem("logo", response.data.logo);
+        localStorage.setItem("config", response.data.second_color);
+        setLoaded(false);
+
+      }).catch((err) => {
+        setLoaded(false);
+        setDefaultTheme(true);
+      })
+    }else{
+      setLoaded(false);
+    }
   }, [])
 
-  return loaded ? <CircularProgress />
+  useEffect(() => {
+    if(GetLocalConfig()){
+      setThemeStyles(true);
+    }
+  }, [loaded])
+
+  return (loaded) ? <CircularProgress />
   : <Router history={history}>
       <Routes />
-      <GlobalStyle />
+      {(!loaded && !defaultTheme) && <GlobalStyle theme={GetTheme.getThemeJson()} />}
+      {(!loaded && defaultTheme) && <GlobalStyle theme={GetDefaultTheme()} />}
     </Router>
     
 }
