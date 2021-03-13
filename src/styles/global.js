@@ -2,7 +2,11 @@ import {createGlobalStyle} from 'styled-components';
 import {GetDefaultTheme} from '../services/theme';
 const defaultTheme = GetDefaultTheme();
 
+console.log(defaultTheme);
+
 export default createGlobalStyle`
+
+    ${props => console.log(props)}
 
     *{
         margin: 0px;
