@@ -7,7 +7,7 @@ import { CircularProgress } from '@material-ui/core/'
 import Routes from './routes';
 import history from './services/history';
 import API from './services/api';
-import {GetLocalConfig, SetDefaultConfig, GetTheme, GetDefaultTheme} from './services/theme';
+import {GetLocalConfig, GetTheme, GetDefaultTheme} from './services/theme';
 
 import GlobalStyle from './styles/global';
 
@@ -37,12 +37,6 @@ function App() {
       setLoaded(false);
     }
   }, [])
-
-  useEffect(() => {
-    if(GetLocalConfig()){
-      setThemeStyles(true);
-    }
-  }, [loaded])
 
   return (loaded) ? <CircularProgress />
   : <Router history={history}>
