@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import styled from 'styled-components';
 import {Link} from 'react-router-dom'
 import {Drawer, Button} from '@material-ui/core';
@@ -6,6 +6,7 @@ import {GetTheme} from '../services/theme';
 import { useSnackbar } from 'notistack';
 import ColorizeIcon from '@material-ui/icons/Colorize';
 import ConfigComponent from './Config.component';
+import themeContext from '../store/ThemeContext';
 
 import { Messages } from '../services/messages';
 import API from '../services/api';
@@ -21,6 +22,7 @@ const HeaderWrapper = styled('header')`
 export default function HeaderComponent(){
 
     const { enqueueSnackbar } = useSnackbar();
+    const currentThemeContext = useContext(themeContext);
 
     const [openDrawer, setOpenDrawer] = useState(false);
     const [domain] = useState(window.location.origin);
@@ -36,17 +38,9 @@ export default function HeaderComponent(){
     }
 
     useEffect(() => {
-
-      const data = {domain: domain}
-      
-      API.post('/config/get', data ).then((response) => {
-        setConfigData(response.data);
-      }).catch((err) => {
-        enqueueSnackbar(Messages.error.not_config_erro, {variant: 'error'});
-      })
-
-      setThemeConfig(GetTheme.getThemeJson());
-
+      if(currentThemeContext){
+        setThemeConfig(GetTheme.parseThemetoJson(currentThemeContext.second_color));
+      }
     }, [openDrawer]);
 
     return (
@@ -61,7 +55,7 @@ export default function HeaderComponent(){
                 <Button onClick={() => handleDrawer(true)}><ColorizeIcon /></Button>
             </HeaderWrapper>
             <Drawer open={openDrawer} anchor={"right"} onClose={() => handleDrawer(false)}>
-                <ConfigComponent config={themeConfig} configData={configData} domain={domain} />
+                <ConfigComponent config={themeConfig} configData={currentThemeContext} domain={domain} />
             </Drawer>
         </>
     )

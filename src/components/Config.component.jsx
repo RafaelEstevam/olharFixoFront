@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import { useHistory } from 'react-router-dom';
 import {CardContent} from '@material-ui/core';
 import {CustomInput, CustomButton, CustonCardHeader} from './Custom.component';
@@ -9,6 +9,7 @@ import {ConfigValidation} from '../services/validations'
 import API from '../services/api';
 import styled from 'styled-components';
 import {GetTheme} from '../services/theme';
+import themeContext from '../store/ThemeContext';
 
 const CustonDrawerConfig = styled('div')`
     max-width: 250px;
@@ -17,6 +18,7 @@ const CustonDrawerConfig = styled('div')`
 function ConfigComponent({config, configData, domain}) {
 
   const history = useHistory();
+  const currentThemeContext = useContext(themeContext);
 
   const { enqueueSnackbar } = useSnackbar();
   const [configId] = useState(configData?._id);
@@ -78,6 +80,8 @@ function ConfigComponent({config, configData, domain}) {
       second_color: GetTheme.parseThemeToString(colorData)
     }
 
+    console.log(currentThemeContext);
+
     // console.log(configId);
 
     if(window.confirm("Tem certeza que deseja aplicar as alterações? A página será recarregada")){
@@ -86,8 +90,8 @@ function ConfigComponent({config, configData, domain}) {
         data._id = configId;
 
         API.put(`/config/${configId}`, data ).then((response) => {
-          localStorage.setItem("logo", response.data.logo);
-          localStorage.setItem("config", response.data.second_color);
+          // localStorage.setItem("logo", response.data.logo);
+          // localStorage.setItem("config", response.data.second_color);
           history.go(0);
         }).catch((err) => {
           enqueueSnackbar(Messages.error.not_config_erro, {variant: 'error'});
@@ -95,19 +99,16 @@ function ConfigComponent({config, configData, domain}) {
         
       }else{
         API.post(`/config`, data ).then((response) => {
-          localStorage.setItem("logo", response.data.logo);
-          localStorage.setItem("config", response.data.second_color);
+          // localStorage.setItem("logo", response.data.logo);
+          // localStorage.setItem("config", response.data.second_color);
           history.go(0);
         }).catch((err) => {
           enqueueSnackbar(Messages.error.not_config_erro, {variant: 'error'});
         })
       }
-      
     }
     
   }
-  
-  
 
   return (
       <CustonDrawerConfig>
