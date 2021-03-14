@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import { useHistory } from 'react-router-dom';
 import {CardContent} from '@material-ui/core';
 import {CustomInput, CustomButton, CustonCardHeader} from './Custom.component';
 import { useSnackbar } from 'notistack';
@@ -7,14 +8,19 @@ import {Formik } from 'formik';
 import {ConfigValidation} from '../services/validations'
 import API from '../services/api';
 import styled from 'styled-components';
+import {GetTheme} from '../services/theme';
 
 const CustonDrawerConfig = styled('div')`
     max-width: 250px;
 `
 
-function ConfigComponent({config}) {
+function ConfigComponent({config, configData, domain}) {
+
+  const history = useHistory();
 
   const { enqueueSnackbar } = useSnackbar();
+  const [configId] = useState(configData?._id);
+  const [refreshForm, setRefreshForm] = useState(false);
 
   const {
     main_color,
@@ -27,33 +33,81 @@ function ConfigComponent({config}) {
     dark_color,
     light_color
   } = config;
-
-  const [mainColor, setMainColor] = useState(main_color);
-  const [secondColor, setSecondColor] = useState(second_color);
-  const [successColor, setSuccessColor] = useState(success_color);
-  const [dangerColor, setDangerColor] = useState(danger_color);
-  const [warningColor, setWarningColor] = useState(warning_color);
-  const [infoColor, setInfoColor] = useState(info_color);
-  const [inverseColor, setInverseColor] = useState(inverse_color);
-  const [darkColor, setDarkColor] = useState(dark_color);
-  const [lightColor, setLightColor] = useState(light_color);
-  const [refreshForm, setRefreshForm] = useState(false);
-
+  
   const initialValues = {
-    mainColor: mainColor,
-    secondColor: secondColor,
-    successColor: successColor,
-    dangerColor: dangerColor,
-    warningColor: warningColor,
-    infoColor: infoColor,
-    inverseColor: inverseColor,
-    darkColor: darkColor,
-    lightColor: lightColor,
+    mainColor: main_color,
+    secondColor: second_color,
+    successColor: success_color,
+    dangerColor: danger_color,
+    warningColor: warning_color,
+    infoColor: info_color,
+    inverseColor: inverse_color,
+    darkColor: dark_color,
+    lightColor: light_color,
   }
   
   const handleConfigSubmit = (values) =>{
-    console.log(values);
+    const {
+      mainColor,
+      secondColor,
+      successColor,
+      dangerColor,
+      warningColor,
+      infoColor,
+      inverseColor,
+      darkColor,
+      lightColor
+    } = values;
+
+    const colorData = {
+      main_color: mainColor,
+      second_color: secondColor,
+      success_color: successColor,
+      danger_color: dangerColor,
+      warning_color: warningColor,
+      info_color: infoColor,
+      inverse_color: inverseColor,
+      dark_color: darkColor,
+      light_color: lightColor,
+    }
+
+    const data = {
+      logo: 'https://jovemnerd.com.br/wp-content/themes/jovem-nerd-v8/assets/images/logo-jovemnerd.png',
+      domain: domain,
+      main_color: '#000',
+      second_color: GetTheme.parseThemeToString(colorData)
+    }
+
+    // console.log(configId);
+
+    if(window.confirm("Tem certeza que deseja aplicar as alterações? A página será recarregada")){
+      if(configId){
+
+        data._id = configId;
+
+        API.put(`/config/${configId}`, data ).then((response) => {
+          localStorage.setItem("logo", response.data.logo);
+          localStorage.setItem("config", response.data.second_color);
+          history.go(0);
+        }).catch((err) => {
+          enqueueSnackbar(Messages.error.not_config_erro, {variant: 'error'});
+        });
+        
+      }else{
+        API.post(`/config`, data ).then((response) => {
+          localStorage.setItem("logo", response.data.logo);
+          localStorage.setItem("config", response.data.second_color);
+          history.go(0);
+        }).catch((err) => {
+          enqueueSnackbar(Messages.error.not_config_erro, {variant: 'error'});
+        })
+      }
+      
+    }
+    
   }
+  
+  
 
   return (
       <CustonDrawerConfig>

@@ -27,6 +27,11 @@ export const GetTheme = {
         return theme;
     },
 
+    parseThemeToString: (json) =>{
+        const theme = JSON.stringify(json).replace(/"/g,"'")
+        return theme;
+    },
+
     getConfigJson: (key) => {
         if(localStorage.getItem("config")){
             const theme = JSON.parse(localStorage.getItem("config").replace(/'/g,'"'));

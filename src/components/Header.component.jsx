@@ -7,6 +7,9 @@ import { useSnackbar } from 'notistack';
 import ColorizeIcon from '@material-ui/icons/Colorize';
 import ConfigComponent from './Config.component';
 
+import { Messages } from '../services/messages';
+import API from '../services/api';
+
 const HeaderWrapper = styled('header')`
     display: flex;
     justify-content: space-between;
@@ -21,10 +24,11 @@ export default function HeaderComponent(){
 
     const [openDrawer, setOpenDrawer] = useState(false);
     const [domain] = useState(window.location.origin);
-    const [config, setConfig] = useState();
+    const [themeConfig, setThemeConfig] = useState();
+    const [configData, setConfigData] = useState();
 
     const handleDrawer = (toggle) =>{
-        setOpenDrawer(toggle);
+      setOpenDrawer(toggle);
     }
 
     const handleCloseDrawer = () =>{
@@ -32,7 +36,17 @@ export default function HeaderComponent(){
     }
 
     useEffect(() => {
-      setConfig(GetTheme.getThemeJson());
+
+      const data = {domain: domain}
+      
+      API.post('/config/get', data ).then((response) => {
+        setConfigData(response.data);
+      }).catch((err) => {
+        enqueueSnackbar(Messages.error.not_config_erro, {variant: 'error'});
+      })
+
+      setThemeConfig(GetTheme.getThemeJson());
+
     }, [openDrawer]);
 
     return (
@@ -47,7 +61,7 @@ export default function HeaderComponent(){
                 <Button onClick={() => handleDrawer(true)}><ColorizeIcon /></Button>
             </HeaderWrapper>
             <Drawer open={openDrawer} anchor={"right"} onClose={() => handleDrawer(false)}>
-                <ConfigComponent config={config} />
+                <ConfigComponent config={themeConfig} configData={configData} domain={domain} />
             </Drawer>
         </>
     )

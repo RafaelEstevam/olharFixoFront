@@ -9,7 +9,6 @@ export default createGlobalStyle`
         padding: 0px;
         outline: 0;
         box-sizing: border-box;
-        font-family: "Roboto", "Helvetica", "Arial", sans-serif;
         font-size: 16px;
     }
 
