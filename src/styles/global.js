@@ -17,6 +17,10 @@ export default createGlobalStyle`
         margin: 0px;
     }
 
+    ul{
+        margin: 0px;
+    }
+
     :root {
         --main-color: ${props => props.theme?.main_color || defaultTheme.main_color};
         --second-color: ${props => props.theme?.second_color || defaultTheme.second_color};
@@ -35,7 +39,8 @@ export default createGlobalStyle`
         --default-info-color: #00BCD4;
         --default-inverse-color: #FF5722;
         --default-dark-color: #333;
-        --default-light-color: #fff;
+        --default-light-color: #F4F6F8;
+        --default-white-color: #FFF;
         --default-gray-color: #666;
     }
 
@@ -93,6 +98,9 @@ export default createGlobalStyle`
 
     .default_gray_color{color: var(--default-gray-color) !important}
     .default_gray_background{background-color: var(--default-gray-color) !important}
+    
+    .default_white_color{color: var(--default-white-color) !important}
+    .default_white_background{background-color: var(--default-white-color) !important}
 
     @media(max-width: 959px){
         .hide-tablet{

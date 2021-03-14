@@ -10,3 +10,15 @@ export const FirsAccessValidation = Yup.object().shape({
     doc: Yup.string().required(Messages.error.required),
     username: Yup.string().required(Messages.error.required)
 });
+
+export const ConfigValidation = Yup.object().shape({
+    mainColor: Yup.string().required(Messages.error.required),
+    secondColor: Yup.string().required(Messages.error.required),
+    successColor: Yup.string().required(Messages.error.required),
+    dangerColor: Yup.string().required(Messages.error.required),
+    warningColor: Yup.string().required(Messages.error.required),
+    infoColor: Yup.string().required(Messages.error.required),
+    inverseColor: Yup.string().required(Messages.error.required),
+    darkColor: Yup.string().required(Messages.error.required),
+    lightColor: Yup.string().required(Messages.error.required),
+});
