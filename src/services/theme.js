@@ -1,10 +1,5 @@
 
 
-export function SetDefaultConfig(){
-    const defaultConfig = "{'main_color': '#c00', 'second_color': '#c00'}"
-    localStorage.setItem("config", defaultConfig)
-}
-
 export function GetDefaultTheme(){
     return {
         main_color: "#2196F3",
@@ -27,6 +22,7 @@ export const GetTheme = {
         }
         
     },
+
     getConfigJson: (key) => {
         if(localStorage.getItem("config")){
             const theme = JSON.parse(localStorage.getItem("config").replace(/'/g,'"'));
@@ -47,4 +43,9 @@ export const GetTheme = {
 export function GetLocalConfig(){
     const config = localStorage.getItem("config");
     return config;
+}
+
+export function JsonToStringSetLocal(){
+    const jsonString = JSON.stringify(GetDefaultTheme()).replace(/"/g,"'")
+    localStorage.setItem("config", jsonString);
 }

@@ -3,12 +3,13 @@ import {
   Grid,
   CardContent,
 } from '@material-ui/core';
+
 import styled from 'styled-components';
 import loginImage from '../../assets/login-image.png'
 
 const LoginWrapper = styled(Grid)`
   background: #ccc;
-  height: 94vh;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -25,6 +26,10 @@ const LoginWrapperImg = styled(Grid)`
 const FooterWrapper = styled('div')`
   width: 100%;
   height: 6vh;
+  position: fixed;
+  z-index: 1;
+  bottom: 0px;
+  left: 0px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -46,7 +51,7 @@ function TemplateAuth({children}) {
             {children}
           </CardContent>
         </LoginWrapper>
-        <LoginWrapperImg item md={9}>
+        <LoginWrapperImg item md={9} className="hide-mobile  hide-tablet">
           <img src={loginImage} />
         </LoginWrapperImg>
       </Grid>

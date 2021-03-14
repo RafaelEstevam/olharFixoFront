@@ -1,114 +1,95 @@
-import React, {useEffect, useState} from 'react';
+
+import React, { useState } from 'react';
+import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import axios from 'axios';
 import {
-  Box,
-  Button,
-  Container,
-  Grid,
-  Link,
-  TextField,
-  Typography,
-  makeStyles
-} from '@material-ui/core';
-// import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
-// import {Link as Linked} from 'react-router-dom';
-// import { ColorPicker } from 'material-ui-color';
-import API from '../../services/api';
+  Formik, Form, Field, ErrorMessage,
+} from 'formik';
+import * as Yup from 'yup';
+// import { DisplayFormikState } from './formikHelper';
 
-function Login() {
+const schema = Yup.object().shape({
+  email: Yup.string().email().required('Required'),
+  password: Yup.string().required('Required')
+});
 
-  const [id, setId] = useState('')
-  const [domain] = useState(window.location.origin);
-  const [logo, setLogo] = useState('');
-  const [main_color, setMainColor] = useState('');
-  const [second_color, setSecondColor] = useState('');
-
-  const handleSubmit = async (e) =>{
-    e.preventDefault();
-    const data = {domain, logo, main_color, second_color};
-    if(!id){
-      await API.post(`/config`, data).then((response) => {
-        console.log(response);
-      })
-    }else{
-
-      data.id = id;
-      await API.put(`/config/${id}`, data).then((response) => {
-        console.log(response);
-      })
-    }
-    
+export default function Contact(props) {
+  const { classes } = props;
+  const [open, setOpen] = useState(false);
+  const [isSubmitionCompleted, setSubmitionCompleted] = useState(false);
+  
+  function handleClose() {
+    setOpen(false);
   }
 
-  useEffect(() => {
-    API.post(`/config/get`, {domain: domain}).then((response) => {
-      setId(response.data._id);
-    })
-  }, [])
+  function handleClickOpen() {
+    setSubmitionCompleted(false);
+    setOpen(true);
+  }
 
   return (
-    <div title="Login">
-      <Box display="flex" flexDirection="column" height="100%" justifyContent="center">
-        <Container maxWidth="sm">
-          <form onSubmit={handleSubmit}>
-            <TextField
-              fullWidth
-              label="Logo"
-              margin="normal"
-              name="logo"
-              type="text"
-              variant="outlined"
-              value={logo}
-              onChange={(e) => setLogo(e.target.value)}
-            />
+    <Formik
+                initialValues={{ email: '', name: '', comment: '' }}
+                validationSchema={schema}
+              >
+                {(props) => {
+                  const {
+                    values,
+                    touched,
+                    errors,
+                    dirty,
+                    isSubmitting,
+                    handleChange,
+                    handleBlur,
+                    handleSubmit,
+                    handleReset,
+                  } = props;
+                  return (
+                    <form onSubmit={handleSubmit}>
+                      <TextField
+                        label="name"
+                        name="name"
+                        value={values.name}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        helperText={(errors.name && touched.name) && errors.name}
+                        margin="normal"
+                      />
 
-            <TextField
-              fullWidth
-              label="Cor principal"
-              margin="normal"
-              name="mainColor"
-              variant="outlined"
-              value={main_color}
-              onChange={(e) => setMainColor(e.target.value)}
-            />
+                      <TextField
+                        error={errors.email && touched.email}
+                        label="email"
+                        name="email"
+                        value={values.email}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        helperText={(errors.email && touched.email) && errors.email}
+                        margin="normal"
+                      />
 
-            <TextField
-              fullWidth
-              label="Cor secundária"
-              margin="normal"
-              name="secondColor"
-              variant="outlined"
-              value={second_color}
-              onChange={(e) => setSecondColor(e.target.value)}
-            />
-
-            <Box my={2}>
-              <Button color="primary" fullWidth size="large" type="submit" variant="contained">
-                Salvar
-              </Button>
-            </Box>
-          </form>
-        </Container>
-      </Box>
-    </div>
-  )
-
-  // return (
-  //     <>
-  //       <h1>Login</h1>
-  //           <ValidatorForm onSubmit={handleSubmit} onError={errors => console.log(errors)}>
-  //             <TextValidator
-  //               label="Email"
-  //               name="email"
-  //               value={logo}
-  //               validators={['required', 'isEmail']}
-  //               errorMessages={['this field is required', 'email is not valid']}
-  //           />
-  //         <input type="text" value={email} onChange={e => setEmail(e.target.value)} />
-  //         <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
-  //         <button type="submit">Login</button>
-  //       </ValidatorForm>
-  //     </>
-  // );
+                      <TextField
+                        label="comment"
+                        name="comment"
+                        value={values.comment}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        helperText={(errors.comment && touched.comment) && errors.comment}
+                        margin="normal"
+                      />
+                      <Button type="submit">
+                          Submit
+                        </Button>
+                    </form>
+                  );
+                }}
+              </Formik>
+      
+  );
 }
-
-export default Login;

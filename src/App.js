@@ -1,17 +1,21 @@
 
 
 import react, {useState, useEffect} from 'react';
-
 import {Router} from 'react-router-dom';
 import { CircularProgress } from '@material-ui/core/'
+import {GetLocalConfig, GetTheme, GetDefaultTheme, JsonToStringSetLocal} from './services/theme';
+import { useSnackbar } from 'notistack';
+import { Messages } from './services/messages';
+
 import Routes from './routes';
 import history from './services/history';
 import API from './services/api';
-import {GetLocalConfig, GetTheme, GetDefaultTheme} from './services/theme';
 
 import GlobalStyle from './styles/global';
 
 function App() {
+
+  const { enqueueSnackbar } = useSnackbar();
 
   const [loaded, setLoaded] = useState(true);
   const [domain] = useState(window.location.origin);
@@ -31,7 +35,9 @@ function App() {
 
       }).catch((err) => {
         setLoaded(false);
+        JsonToStringSetLocal();
         setDefaultTheme(true);
+        enqueueSnackbar(Messages.error.not_config_erro, {variant: 'error'});
       })
     }else{
       setLoaded(false);

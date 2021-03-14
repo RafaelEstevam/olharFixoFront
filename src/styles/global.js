@@ -2,11 +2,7 @@ import {createGlobalStyle} from 'styled-components';
 import {GetDefaultTheme} from '../services/theme';
 const defaultTheme = GetDefaultTheme();
 
-console.log(defaultTheme);
-
 export default createGlobalStyle`
-
-    ${props => console.log(props)}
 
     *{
         margin: 0px;
@@ -14,6 +10,7 @@ export default createGlobalStyle`
         outline: 0;
         box-sizing: border-box;
         font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+        font-size: 16px;
     }
 
     p{
@@ -96,5 +93,17 @@ export default createGlobalStyle`
 
     .default_gray_color{color: var(--default-gray-color) !important}
     .default_gray_background{background-color: var(--default-gray-color) !important}
+
+    @media(max-width: 959px){
+        .hide-tablet{
+            display: none !important;
+        }
+    }
+
+    @media(max-width: 766px){
+        .hide-mobile{
+            display: none !important;
+        }
+    }
 
 `;
