@@ -1,12 +1,12 @@
 import * as Yup from 'yup';
-import Messages from './messages'
+import {Messages} from './messages'
 
 export const LoginValidation = Yup.object().shape({
-    email: Yup.string().email().required('Required'),
-    password: Yup.string().required('Required')
+    email: Yup.string().email(Messages.error.email_format).required(Messages.error.required),
+    password: Yup.string().required(Messages.error.required)
 });
 
 export const FirsAccessValidation = Yup.object().shape({
-    doc: Yup.string().required('Required'),
-    username: Yup.string().required('Required')
+    doc: Yup.string().required(Messages.error.required),
+    username: Yup.string().required(Messages.error.required)
 });

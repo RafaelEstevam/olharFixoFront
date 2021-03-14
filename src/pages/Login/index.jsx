@@ -9,8 +9,7 @@ import {Logo} from '../../components/Logo.component';
 import {Formik } from 'formik';
 import {LoginValidation, FirsAccessValidation} from '../../services/validations'
 
-import * as Yup from 'yup';
-import api from '../../services/api';
+import API from '../../services/api';
 import styled from 'styled-components';
 
 const LoginTitleWrapper = styled('div')`
@@ -26,10 +25,11 @@ function Login() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [doc, setDoc] = useState('');
-  const [userName, setuserName] = useState('');
-  const [step, setStep] = useState(0)
-  const [values, setValues] = useState(false)
+  const [doc] = useState('');
+  const [username] = useState('');
+  const [step, setStep] = useState(0);
+  const [refreshLoginForm, setRefreshLoginForm] = useState(false);
+  const [refreshFirstAccessForm, setRefreshFirstAccessForm] = useState(false);
 
   const handleStep = (step) =>{
     if(step === 1){
@@ -39,6 +39,17 @@ function Login() {
       setStep(0)
     }
   }
+
+  // useEffect(() => {
+  //   setRefreshLoginForm(true);
+
+  //   API.post(`/config/get`, {domain: 'http://localhost:3001'}).then((response) => {
+  //     setEmail("teste@teste.com");
+  //     setPassword("123");
+  //   }).then(() => {
+  //     setRefreshLoginForm(false);
+  //   })
+  // }, [])
 
   const handleLoginSubmit = (values) =>{
     console.log(values);
@@ -61,9 +72,10 @@ function Login() {
         <CustomCarousel activeIndex={step}>
           <div>
             <Formik
-              initialValues={values}
+              initialValues={{email:email, password:password}}
               validationSchema={LoginValidation}
               onSubmit={(values) => handleLoginSubmit(values)}
+              enableReinitialize={refreshLoginForm}
             >
               {(props) => {
                 const { values, touched, errors, handleChange, handleBlur, handleSubmit, handleReset} = props;
@@ -118,9 +130,10 @@ function Login() {
 
           <div>
             <Formik
-              initialValues={{ doc: doc, userName: userName}}
+              initialValues={{ doc: doc, username: username}}
               validationSchema={FirsAccessValidation}
-              onSubmit={(values) => handleLoginSubmit(values)}
+              onSubmit={(values) => handleSubmit(values)}
+              enableReinitialize={refreshFirstAccessForm}
             >
               {(props) => {
                 const { values, touched, errors, handleChange, handleBlur, handleSubmit, handleReset} = props;
@@ -128,7 +141,7 @@ function Login() {
                 return(
                   <form onSubmit={handleSubmit}>
                     <Typography variant="subtitle1" align="center" className="default_gray_color">
-                      Faça seu login:
+                      Insira os dados abaixo:
                     </Typography>
                     <CustomInput
                       onChange={handleChange}
@@ -148,14 +161,14 @@ function Login() {
                       onChange={handleChange}
                       onBlur={handleBlur}
                       fullWidth
-                      label="userName"
+                      label="username"
                       type="text"
                       size="small"
-                      name="userName"
-                      id="userName"
-                      helperText={(errors.userName && errors.userName) && errors.userName}
-                      error={errors.userName && touched.userName}
-                      value={values.userName}
+                      name="username"
+                      id="username"
+                      helperText={(errors.username && errors.username) && errors.username}
+                      error={errors.username && touched.username}
+                      value={values.username}
                     />
                     
                     <CustomButton
