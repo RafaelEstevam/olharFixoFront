@@ -5,8 +5,6 @@ const defaultTheme = GetDefaultTheme();
 
 export default createGlobalStyle`
 
-    ${props => console.log(props)}
-
     *{
         margin: 0px;
         padding: 0px;

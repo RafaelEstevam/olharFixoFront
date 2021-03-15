@@ -2,7 +2,8 @@ import React, {useState, useEffect, useContext} from 'react';
 import styled from 'styled-components';
 import {Link} from 'react-router-dom'
 import {Drawer, Button} from '@material-ui/core';
-import {GetTheme} from '../services/theme';
+
+import {GetTheme, GetDefaultTheme} from '../services/theme';
 import { useSnackbar } from 'notistack';
 import ColorizeIcon from '@material-ui/icons/Colorize';
 import ConfigComponent from './Config.component';
@@ -37,9 +38,11 @@ export default function HeaderComponent(){
         setOpenDrawer(false);
     }
 
-    useEffect(() => {
+    useEffect(() => {        
       if(currentThemeContext){
         setThemeConfig(GetTheme.parseThemetoJson(currentThemeContext.second_color));
+      }else{
+        setThemeConfig(GetDefaultTheme());
       }
     }, [openDrawer]);
 

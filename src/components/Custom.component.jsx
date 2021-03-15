@@ -137,7 +137,7 @@ export function CustomBreadcrumb({links, label}){
     return(
         <Breadcrumbs aria-label="breadcrumb">
             {links?.map((item) => (
-                <Link to={item.to} >
+                <Link to={item.to} key={item.label} >
                     {item.label}
                 </Link>
             ))}

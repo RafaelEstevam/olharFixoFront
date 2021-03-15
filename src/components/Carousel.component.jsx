@@ -13,7 +13,7 @@ export function CustomCarousel({children, activeIndex}){
     return (
         <Carousel interval={null} controls={false} indicators={false} activeIndex={activeIndex}>
             {
-                children?.map((item) =>(
+                children?.map((item, index) =>(
                     <CustomCarouselItem>
                         {item.props.children}
                     </CustomCarouselItem>

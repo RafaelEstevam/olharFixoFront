@@ -55,7 +55,7 @@ function Login() {
 
         <LoginTitleWrapper>
           <Logo />
-          <CustomTypography variant="h6" className="dark_color" bold label="Seja bem vindo!"/>
+          <CustomTypography variant="h6" className="dark_color" bold="true" label="Seja bem vindo!"/>
         </LoginTitleWrapper>
 
         <CustomCarousel activeIndex={step}>
