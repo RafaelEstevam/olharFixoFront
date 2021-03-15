@@ -39,8 +39,6 @@ const CustonStyledLink = styled('a')`
 const CustomStyledButton = styled('button')`
     border: 0px solid;
     border-radius: 4px;
-    background-color: ${props => props.bg};
-    color: ${props => props.color};
     font-weight: bold;
     text-transform: uppercase;
     padding: 12px 15px;
@@ -99,15 +97,15 @@ export function CustomInputValidator({onChange, value, fullWidth, label, type, s
     )
 }
 
-export function CustomButton({type, label, CustomClass, bg, color, fullwidth, size, onClick, disabled}){
+export function CustomButton({type, label, bg, color, fullwidth, size, onClick, disabled}){
+
+    const custonClass = `${bg} ${color}`;
 
     return (
         <CustomStyledButton
             type={type}
-            className={CustomClass}
-            bg={GetTheme.getConfigJson(bg)}
-            color={GetTheme.getConfigJson(color)}
             fullwidth={fullwidth}
+            className={custonClass}
             onClick={onClick}
             size={size}
             disabled={disabled}
@@ -129,7 +127,7 @@ export function CustomTypography({variant, className, label, bold}){
 
 export function CustomFormLink({onClick, label, color}){
     return (
-        <CustonStyledLink color={GetTheme.getConfigJson(color)} onClick={onClick}>
+        <CustonStyledLink className={color} onClick={onClick}>
             {label}
         </CustonStyledLink>
     )

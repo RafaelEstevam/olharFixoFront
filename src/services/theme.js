@@ -1,5 +1,3 @@
-
-
 export function GetDefaultTheme(){
     return {
         main_color: "#2196F3",
@@ -11,6 +9,14 @@ export function GetDefaultTheme(){
         inverse_color: "#FF5722",
         dark_color: "#333",
         light_color: "#fff",
+        white_color: "#fff",
+        menu_color: "#2196F3",
+        submenu_color: "#00BCD4",
+        header_color: "#FFF",
+        text_color: "#333",
+        title_color: "#333",
+        link_color: "#2196F3",
+        gray_color: "#666",
     }
 }
 

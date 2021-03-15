@@ -9,7 +9,7 @@ const Wrapper = styled('div')`
 
 const MainWrapper = styled('div')`
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
 `;
@@ -21,12 +21,13 @@ const ContentWrapper = styled('div')`
 
 const MenuWrapper = styled('div')`
   width: 15%;
+  min-height: 100%;
 `;
 
 function TemplateDefault({children}) {
   return (
     <Wrapper>
-        <MenuWrapper className="main_background">
+        <MenuWrapper className="menu_background">
           menu
         </MenuWrapper>
         <MainWrapper>

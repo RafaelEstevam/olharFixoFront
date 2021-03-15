@@ -40,17 +40,6 @@ function Login() {
     }
   }
 
-  // useEffect(() => {
-  //   setRefreshLoginForm(true);
-
-  //   API.post(`/config/get`, {domain: 'http://localhost:3001'}).then((response) => {
-  //     setEmail("teste@teste.com");
-  //     setPassword("123");
-  //   }).then(() => {
-  //     setRefreshLoginForm(false);
-  //   })
-  // }, [])
-
   const handleLoginSubmit = (values) =>{
     console.log(values);
   }
@@ -116,7 +105,7 @@ function Login() {
                     <CustomButton
                       type="submit"
                       label={'Acessar'}
-                      bg={'main_color'}
+                      bg={'main_background'}
                       color={'light_color'}
                       fullwidth
                       size="small"
@@ -174,7 +163,7 @@ function Login() {
                     <CustomButton
                       type="submit"
                       label={'Acessar'}
-                      bg={'main_color'}
+                      bg={'main_background'}
                       color={'light_color'}
                       fullwidth
                       size="small"

@@ -45,7 +45,7 @@ export default function HeaderComponent(){
 
     return (
         <>
-            <HeaderWrapper className="default_white_background">
+            <HeaderWrapper className="header_background">
                 <div>
                     <ul>
                         <Link to='/dashboard'>Dashboard</Link>

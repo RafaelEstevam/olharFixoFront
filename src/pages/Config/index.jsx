@@ -242,8 +242,8 @@ function Config() {
                       <CustomButton
                         type="submit"
                         label={'Acessar'}
-                        bg={'main_color'}
-                        color={'light_color'}
+                        asdf="second_background"
+                        color="main_color"
                         fullwidth
                         size="small"
                       />
