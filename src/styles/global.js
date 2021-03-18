@@ -45,7 +45,7 @@ export default createGlobalStyle`
         --default-info-color: #00BCD4;
         --default-inverse-color: #FF5722;
         --default-dark-color: #333;
-        --default-light-color: #F4F6F8;
+        --default-light-color: #FFF;
         --default-white-color: #FFF;
         --default-gray-color: #666;
         --default-menu-color: #2196F3;

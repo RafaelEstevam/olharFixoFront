@@ -13,11 +13,11 @@ const LoginWrapper = styled(Grid)`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0px 30px;
+  padding: 0px 5px;
 `
 
 const LoginWrapperImg = styled(Grid)`
-  height: 94vh;
+  height: 100vh;
   img{
     width: 100%;
     height: 100%;
