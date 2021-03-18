@@ -54,7 +54,7 @@ function Login() {
       <div>
 
         <LoginTitleWrapper>
-          <Logo />
+          <Logo wrappered />
           <CustomTypography variant="h6" className="dark_color" bold="true" label="Seja bem vindo!"/>
         </LoginTitleWrapper>
 

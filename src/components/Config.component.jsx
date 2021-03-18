@@ -248,7 +248,7 @@ function ConfigComponent({config, configData, domain}) {
                         value={values.secondColor}
                     />
 
-                    <CustomInput
+                    {/* <CustomInput
                         onChange={handleChange}
                         onBlur={handleBlur}
                         fullWidth
@@ -260,8 +260,9 @@ function ConfigComponent({config, configData, domain}) {
                         helperText={(errors.successColor && touched.successColor) && errors.successColor}
                         error={errors.successColor && touched.successColor}
                         value={values.successColor}
-                    />
-                    <CustomInput
+                    /> */}
+
+                    {/* <CustomInput
                         onChange={handleChange}
                         onBlur={handleBlur}
                         fullWidth
@@ -273,9 +274,9 @@ function ConfigComponent({config, configData, domain}) {
                         helperText={(errors.dangerColor && touched.dangerColor) && errors.dangerColor}
                         error={errors.dangerColor && touched.dangerColor}
                         value={values.dangerColor}
-                    />
+                    /> */}
 
-                    <CustomInput
+                    {/* <CustomInput
                         onChange={handleChange}
                         onBlur={handleBlur}
                         fullWidth
@@ -287,8 +288,9 @@ function ConfigComponent({config, configData, domain}) {
                         helperText={(errors.warningColor && touched.warningColor) && errors.warningColor}
                         error={errors.warningColor && touched.warningColor}
                         value={values.warningColor}
-                    />
-                    <CustomInput
+                    /> */}
+
+                    {/* <CustomInput
                         onChange={handleChange}
                         onBlur={handleBlur}
                         fullWidth
@@ -300,9 +302,9 @@ function ConfigComponent({config, configData, domain}) {
                         helperText={(errors.infoColor && touched.infoColor) && errors.infoColor}
                         error={errors.infoColor && touched.infoColor}
                         value={values.infoColor}
-                    />
+                    /> */}
 
-                    <CustomInput
+                    {/* <CustomInput
                         onChange={handleChange}
                         onBlur={handleBlur}
                         fullWidth
@@ -314,9 +316,9 @@ function ConfigComponent({config, configData, domain}) {
                         helperText={(errors.inverseColor && touched.inverseColor) && errors.inverseColor}
                         error={errors.inverseColor && touched.inverseColor}
                         value={values.inverseColor}
-                    />
+                    /> */}
 
-                    <CustomInput
+                    {/* <CustomInput
                         onChange={handleChange}
                         onBlur={handleBlur}
                         fullWidth
@@ -328,9 +330,9 @@ function ConfigComponent({config, configData, domain}) {
                         helperText={(errors.darkColor && touched.darkColor) && errors.darkColor}
                         error={errors.darkColor && touched.darkColor}
                         value={values.darkColor}
-                    />
+                    /> */}
 
-                    <CustomInput
+                    {/* <CustomInput
                         onChange={handleChange}
                         onBlur={handleBlur}
                         fullWidth
@@ -342,7 +344,7 @@ function ConfigComponent({config, configData, domain}) {
                         helperText={(errors.lightColor && touched.lightColor) && errors.lightColor}
                         error={errors.lightColor && touched.lightColor}
                         value={values.lightColor}
-                    />
+                    /> */}
                     
                     <CustomButton
                         type="submit"
