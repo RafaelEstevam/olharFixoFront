@@ -32,9 +32,15 @@ const FooterWrapper = styled('div')`
   left: 0px;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  padding-left: 15px;
-  padding-right: 15px;
+  justify-content: space-between;
+  padding-left: 30px;
+  padding-right: 30px;
+
+  @media(max-width: 767px){
+    // flex-direction: column;
+    height: auto;
+    padding: 15px 15px;
+  }
 `
 
 const MainWrapper = styled('div')`
@@ -56,6 +62,8 @@ function TemplateAuth({children}) {
         </LoginWrapperImg>
       </Grid>
       <FooterWrapper className="main_background">
+        <p className="default_light_color hide-mobile">Tecnologia que protege.</p>
+        <p className="default_light_color"><b>0800-727-0769</b></p>
         <p className="default_light_color">Feito pela TOTHUS.</p>
       </FooterWrapper>
     </MainWrapper>

@@ -92,7 +92,7 @@ function Login() {
                       onChange={handleChange}
                       onBlur={handleBlur}
                       fullWidth
-                      label="Password"
+                      label="Senha"
                       type="password"
                       size="small"
                       name="password"
@@ -150,7 +150,7 @@ function Login() {
                       onChange={handleChange}
                       onBlur={handleBlur}
                       fullWidth
-                      label="username"
+                      label="Usuário"
                       type="text"
                       size="small"
                       name="username"
