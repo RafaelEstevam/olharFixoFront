@@ -16,7 +16,7 @@ const LoginTitleWrapper = styled('div')`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 `
 
 function Login() {
