@@ -1,68 +1,30 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import styled from 'styled-components';
-import {Link} from 'react-router-dom'
-import {Drawer, Button} from '@material-ui/core';
-import {GetTheme} from '../services/theme';
-import { useSnackbar } from 'notistack';
-import ColorizeIcon from '@material-ui/icons/Colorize';
-import ConfigComponent from './Config.component';
-
-import { Messages } from '../services/messages';
-import API from '../services/api';
+import BtnConfig from './BtnConfig.component';
+import {Logo} from './Logo.component';
 
 const HeaderWrapper = styled('header')`
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    padding: 15px;
+    padding: 10px 15px;
 `
 
 export default function HeaderComponent(){
 
-    const { enqueueSnackbar } = useSnackbar();
-
-    const [openDrawer, setOpenDrawer] = useState(false);
-    const [domain] = useState(window.location.origin);
-    const [themeConfig, setThemeConfig] = useState();
-    const [configData, setConfigData] = useState();
-
-    const handleDrawer = (toggle) =>{
-      setOpenDrawer(toggle);
-    }
-
-    const handleCloseDrawer = () =>{
-        setOpenDrawer(false);
-    }
-
-    useEffect(() => {
-
-      const data = {domain: domain}
-      
-      API.post('/config/get', data ).then((response) => {
-        setConfigData(response.data);
-      }).catch((err) => {
-        enqueueSnackbar(Messages.error.not_config_erro, {variant: 'error'});
-      })
-
-      setThemeConfig(GetTheme.getThemeJson());
-
-    }, [openDrawer]);
-
     return (
         <>
-            <HeaderWrapper className="default_white_background">
+            <HeaderWrapper className="header_background">
+                <Logo wrappered="true" />
                 <div>
-                    <ul>
+                    {/* <ul>
                         <Link to='/dashboard'>Dashboard</Link>
                         <Link to='/profile'>Profile</Link>
-                    </ul>
+                    </ul> */}
                 </div>
-                <Button onClick={() => handleDrawer(true)}><ColorizeIcon /></Button>
             </HeaderWrapper>
-            <Drawer open={openDrawer} anchor={"right"} onClose={() => handleDrawer(false)}>
-                <ConfigComponent config={themeConfig} configData={configData} domain={domain} />
-            </Drawer>
+            <BtnConfig />
         </>
     )
 }

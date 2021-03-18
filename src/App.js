@@ -1,5 +1,3 @@
-
-
 import react, {useState, useEffect} from 'react';
 import {Router} from 'react-router-dom';
 import { CircularProgress } from '@material-ui/core/'
@@ -11,6 +9,8 @@ import Routes from './routes';
 import history from './services/history';
 import API from './services/api';
 
+import ThemeContext from './store/ThemeContext';
+
 import GlobalStyle from './styles/global';
 
 function App() {
@@ -20,36 +20,35 @@ function App() {
   const [loaded, setLoaded] = useState(true);
   const [domain] = useState(window.location.origin);
   const [defaultTheme, setDefaultTheme] = useState(false);
+  const [themeContextValue, setThemeContextValue] = useState(undefined);
   const [themeStyles, setThemeStyles] = useState(false);
 
   useEffect(() => {
-
-    const data = {domain: domain}
-
-    if(!GetLocalConfig()){
+    const data = {domain: domain};
+    if(!themeContextValue){
       API.post('/config/get', data ).then((response) => {
-
-        localStorage.setItem("logo", response.data.logo);
-        localStorage.setItem("config", response.data.second_color);
+        setThemeContextValue(response.data);
         setLoaded(false);
-
       }).catch((err) => {
         setLoaded(false);
-        JsonToStringSetLocal();
         setDefaultTheme(true);
         enqueueSnackbar(Messages.error.not_config_erro, {variant: 'error'});
       })
     }else{
       setLoaded(false);
     }
+    
   }, [])
 
   return (loaded) ? <CircularProgress />
-  : <Router history={history}>
-      <Routes />
-      {(!loaded && !defaultTheme) && <GlobalStyle theme={GetTheme.getThemeJson()} />}
-      {(!loaded && defaultTheme) && <GlobalStyle theme={GetDefaultTheme()} />}
-    </Router>
+  : 
+    <ThemeContext.Provider value={themeContextValue}>
+      <Router history={history}>
+        <Routes />
+        {(!loaded && !defaultTheme) && <GlobalStyle theme={themeContextValue && GetTheme.parseThemetoJson(themeContextValue.second_color)} />}
+        {(!loaded && defaultTheme) && <GlobalStyle theme={GetDefaultTheme()} />}
+      </Router>
+    </ThemeContext.Provider>
     
 }
 

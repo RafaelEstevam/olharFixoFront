@@ -40,17 +40,6 @@ function Login() {
     }
   }
 
-  // useEffect(() => {
-  //   setRefreshLoginForm(true);
-
-  //   API.post(`/config/get`, {domain: 'http://localhost:3001'}).then((response) => {
-  //     setEmail("teste@teste.com");
-  //     setPassword("123");
-  //   }).then(() => {
-  //     setRefreshLoginForm(false);
-  //   })
-  // }, [])
-
   const handleLoginSubmit = (values) =>{
     console.log(values);
   }
@@ -65,8 +54,8 @@ function Login() {
       <div>
 
         <LoginTitleWrapper>
-          <Logo />
-          <CustomTypography variant="h6" className="dark_color" bold label="Seja bem vindo!"/>
+          <Logo wrappered />
+          <CustomTypography variant="h6" className="dark_color" bold="true" label="Seja bem vindo!"/>
         </LoginTitleWrapper>
 
         <CustomCarousel activeIndex={step}>
@@ -116,7 +105,7 @@ function Login() {
                     <CustomButton
                       type="submit"
                       label={'Acessar'}
-                      bg={'main_color'}
+                      bg={'main_background'}
                       color={'light_color'}
                       fullwidth
                       size="small"
@@ -174,7 +163,7 @@ function Login() {
                     <CustomButton
                       type="submit"
                       label={'Acessar'}
-                      bg={'main_color'}
+                      bg={'main_background'}
                       color={'light_color'}
                       fullwidth
                       size="small"

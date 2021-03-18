@@ -3,6 +3,12 @@ import ReactDOM from 'react-dom';
 import { Carousel } from 'react-bootstrap';
 import styled from 'styled-components';
 
+const CustonCarousel = styled(Carousel)`
+    .carousel-inner{
+        max-width: 400px !important;
+    }
+`
+
 const CustomCarouselItem = styled(Carousel.Item)`
     padding: 0px 15px;
     min-width: 100%;
@@ -11,15 +17,15 @@ const CustomCarouselItem = styled(Carousel.Item)`
 export function CustomCarousel({children, activeIndex}){
     
     return (
-        <Carousel interval={null} controls={false} indicators={false} activeIndex={activeIndex}>
+        <CustonCarousel interval={null} controls={false} indicators={false} activeIndex={activeIndex}>
             {
-                children?.map((item) =>(
+                children?.map((item, index) =>(
                     <CustomCarouselItem>
                         {item.props.children}
                     </CustomCarouselItem>
                 ))
             }
-        </Carousel>
+        </CustonCarousel>
     )
     
 }

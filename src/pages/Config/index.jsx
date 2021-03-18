@@ -52,7 +52,7 @@ function Config() {
       <>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <CustomTypography variant="h5" className="dark_color" bold label={title}/>
+            <CustomTypography variant="h5" className="dark_color" bold="true" label={title}/>
             <CustomBreadcrumb links={links} label={title}/>
           </Grid>
         </Grid>
@@ -242,8 +242,8 @@ function Config() {
                       <CustomButton
                         type="submit"
                         label={'Acessar'}
-                        bg={'main_color'}
-                        color={'light_color'}
+                        asdf="second_background"
+                        color="main_color"
                         fullwidth
                         size="small"
                       />
