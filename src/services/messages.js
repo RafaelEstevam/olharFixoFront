@@ -6,6 +6,7 @@ export const Messages = {
         registration_failed: "Não encontramos os dados usados na nossa base de dados.",
         email_format: "O email inserido não é válido",
         required: "Este campo é obrigatório",
+        confirm_pass: "As senhas devem ser iguais"
     }
     
 }

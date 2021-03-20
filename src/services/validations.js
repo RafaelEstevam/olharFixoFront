@@ -11,6 +11,11 @@ export const FirsAccessValidation = Yup.object().shape({
     username: Yup.string().required(Messages.error.required)
 });
 
+export const RecoveryPass = Yup.object().shape({
+    password: Yup.string().required(Messages.error.required),
+    confPassword: Yup.string().required(Messages.error.required).oneOf([Yup.ref('password'), null], Messages.error.confirm_pass)
+});
+
 export const ConfigValidation = Yup.object().shape({
     mainColor: Yup.string().required(Messages.error.required),
     secondColor: Yup.string().required(Messages.error.required),

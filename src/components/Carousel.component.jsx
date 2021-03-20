@@ -19,11 +19,14 @@ export function CustomCarousel({children, activeIndex}){
     return (
         <CustonCarousel interval={null} controls={false} indicators={false} activeIndex={activeIndex}>
             {
-                children?.map((item, index) =>(
+                children.length > 0 ? children?.map((item, index) =>(
                     <CustomCarouselItem>
                         {item.props.children}
                     </CustomCarouselItem>
-                ))
+                )) :
+                <CustomCarouselItem>
+                    {children.props.children}
+                </CustomCarouselItem>
             }
         </CustonCarousel>
     )

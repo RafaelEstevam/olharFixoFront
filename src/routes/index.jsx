@@ -6,11 +6,13 @@ import Register from '../pages/Register';
 import Dashboard from '../pages/Dashboard';
 import Profile from '../pages/Profile';
 import Config from '../pages/Config';
+import Password from '../pages/Password';
 
 function Routes(){
     return(
         <Switch>
             <Route path="/" exact component={Login} />
+            <Route path="/recovery-pass" exact component={Password} isConfig />
             <Route path="/register" component={Register} />
             <Route path="/config" isPrivate component={Config} />
             

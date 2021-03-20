@@ -2,10 +2,11 @@ import React from 'react';
 import {Route, Redirect} from 'react-router-dom';
 import AuthTemplate from '../templates/auth';
 import DefaultTemplate from '../templates/default';
+import ConfigTemplate from '../templates/config';
 
-export default function PrivateRoute({component: Component, isPrivate = false, ...attrs}){
+export default function PrivateRoute({component: Component, isPrivate = false, isConfig = false, ...attrs}){
 
-    const signed = false; 
+    const signed = false;
 
     if(!signed && isPrivate){
         return <Redirect to="/" />
@@ -15,7 +16,7 @@ export default function PrivateRoute({component: Component, isPrivate = false, .
         return <Redirect to ="/dashboard" />
     }
 
-    const Layout = signed ? DefaultTemplate : AuthTemplate;
+    const Layout = signed ? DefaultTemplate : isConfig ? ConfigTemplate : AuthTemplate;
 
     return(
         <Route
