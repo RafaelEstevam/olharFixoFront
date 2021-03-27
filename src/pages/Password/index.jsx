@@ -42,8 +42,7 @@ function Login() {
           <div>
             <Formik
               initialValues={{password:password, confPassword: confPassword}}
-              validationSchema={RecoveryPass}
-              onSubmit={(values) => handleLoginSubmit(values)}
+              validationSchema={RecoveryPass} onSubmit={(values) => handleLoginSubmit(values)}
             >
               {(props) => {
                 const { values, touched, errors, handleChange, handleBlur, handleSubmit, handleReset} = props;
