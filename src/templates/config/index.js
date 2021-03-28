@@ -1,13 +1,10 @@
 import React from 'react';
-import {
-  Grid,
-  CardContent,
-} from '@material-ui/core';
+import { Grid, CardContent } from '@material-ui/core';
 
 import styled from 'styled-components';
 import loginImage from '../../assets/login-image.png';
 
-import {FooterWrapper} from '../../components/Footer.component';
+import { FooterWrapper } from '../../components/Footer.component';
 
 const LoginWrapper = styled(Grid)`
   background: #ccc;
@@ -16,21 +13,19 @@ const LoginWrapper = styled(Grid)`
   align-items: center;
   justify-content: center;
   padding: 0px 5px;
-`
+`;
 
 const MainWrapper = styled('div')`
   display: flex;
   flex-direction: column;
   jusfity-content: space-between;
-`
-function TemplateAuth({children}) {
+`;
+function TemplateAuth({ children }) {
   return (
     <MainWrapper>
       <Grid container>
         <LoginWrapper item md={12} xs={12} className="default_light_background">
-          <CardContent>
-            {children}
-          </CardContent>
+          <CardContent>{children}</CardContent>
         </LoginWrapper>
       </Grid>
       <FooterWrapper />

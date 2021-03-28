@@ -1,20 +1,33 @@
-import React, {useEffect, useState, useRef} from 'react';
-import {Typography, Button, TextField, Grid, CardContent, CardHeader, Divider} from '@material-ui/core';
-import {CustomInput, CustomButton} from '../../components/Custom.component';
-import {CustomTypography, CustomFormLink, CustomBreadcrumb, CustomCard, CustonCardHeader} from '../../components/Custom.component';
-import {CustomCarousel} from '../../components/Carousel.component';
+import React, { useEffect, useState, useRef } from 'react';
+import {
+  Typography,
+  Button,
+  TextField,
+  Grid,
+  CardContent,
+  CardHeader,
+  Divider,
+} from '@material-ui/core';
+import { CustomInput, CustomButton } from '../../components/Custom.component';
+import {
+  CustomTypography,
+  CustomFormLink,
+  CustomBreadcrumb,
+  CustomCard,
+  CustonCardHeader,
+} from '../../components/Custom.component';
+import { CustomCarousel } from '../../components/Carousel.component';
 import { useSnackbar } from 'notistack';
 import { Messages } from '../../services/messages';
-import {Logo} from '../../components/Logo.component';
-import {Formik } from 'formik';
-import {ConfigValidation} from '../../services/validations'
-import {Links} from '../../services/links';
+import { Logo } from '../../components/Logo.component';
+import { Formik } from 'formik';
+import { ConfigValidation } from '../../services/validations';
+import { Links } from '../../services/links';
 
 import API from '../../services/api';
 import styled from 'styled-components';
 
 function Config() {
-
   const { enqueueSnackbar } = useSnackbar();
 
   const [title] = useState('Configurações do Sistema');
@@ -39,23 +52,19 @@ function Config() {
     inverseColor: inverseColor,
     darkColor: darkColor,
     lightColor: lightColor,
-  }
+  };
 
-  const links = [
-    Links('dashboard')
-  ]
-  const handleSubmit = (values) =>{
+  const links = [Links('dashboard')];
+  const handleSubmit = (values) => {
     console.log(values);
-  }
+  };
 
   return (
-      <>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-          </Grid>
-        </Grid>
-      </>
-          
+    <>
+      <Grid container spacing={3}>
+        <Grid item xs={12}></Grid>
+      </Grid>
+    </>
   );
 }
 
