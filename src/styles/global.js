@@ -1,5 +1,5 @@
-import {createGlobalStyle} from 'styled-components';
-import {GetDefaultTheme} from '../services/theme';
+import { createGlobalStyle } from 'styled-components';
+import { GetDefaultTheme } from '../services/theme';
 
 const defaultTheme = GetDefaultTheme();
 
@@ -22,21 +22,36 @@ export default createGlobalStyle`
     }
 
     :root {
-        --main-color: ${props => props.theme?.main_color || defaultTheme.main_color};
-        --second-color: ${props => props.theme?.second_color || defaultTheme.second_color};
-        --success-color: ${props => props.theme?.success_color || defaultTheme.success_color};
-        --danger-color: ${props => props.theme?.danger_color || defaultTheme.danger_color};
-        --warning-color: ${props => props.theme?.warning_color || defaultTheme.warning_color};
-        --info-color: ${props => props.theme?.info_color || defaultTheme.info_color};
-        --inverse-color: ${props => props.theme?.inverse_color || defaultTheme.inverse_color};
-        --dark-color: ${props => props.theme?.dark_color || defaultTheme.dark_color};
-        --light-color: ${props => props.theme?.light_color || defaultTheme.light_color};
-        --menu-color: ${props => props.theme?.menu_color || defaultTheme.menu_color};
-        --submenu-color: ${props => props.theme?.submenu_color || defaultTheme.submenu_color};
-        --header-color: ${props => props.theme?.header_color || defaultTheme.header_color};
-        --text-color: ${props => props.theme?.text_color || defaultTheme.text_color};
-        --title-color: ${props => props.theme?.title_color || defaultTheme.title_color};
-        --link-color: ${props => props.theme?.link_color || defaultTheme.link_color};
+        --main-color: ${(props) =>
+          props.theme?.main_color || defaultTheme.main_color};
+        --second-color: ${(props) =>
+          props.theme?.second_color || defaultTheme.second_color};
+        --success-color: ${(props) =>
+          props.theme?.success_color || defaultTheme.success_color};
+        --danger-color: ${(props) =>
+          props.theme?.danger_color || defaultTheme.danger_color};
+        --warning-color: ${(props) =>
+          props.theme?.warning_color || defaultTheme.warning_color};
+        --info-color: ${(props) =>
+          props.theme?.info_color || defaultTheme.info_color};
+        --inverse-color: ${(props) =>
+          props.theme?.inverse_color || defaultTheme.inverse_color};
+        --dark-color: ${(props) =>
+          props.theme?.dark_color || defaultTheme.dark_color};
+        --light-color: ${(props) =>
+          props.theme?.light_color || defaultTheme.light_color};
+        --menu-color: ${(props) =>
+          props.theme?.menu_color || defaultTheme.menu_color};
+        --submenu-color: ${(props) =>
+          props.theme?.submenu_color || defaultTheme.submenu_color};
+        --header-color: ${(props) =>
+          props.theme?.header_color || defaultTheme.header_color};
+        --text-color: ${(props) =>
+          props.theme?.text_color || defaultTheme.text_color};
+        --title-color: ${(props) =>
+          props.theme?.title_color || defaultTheme.title_color};
+        --link-color: ${(props) =>
+          props.theme?.link_color || defaultTheme.link_color};
         --default-main-color: #2196F3;
         --default-second-color: #9C27B0;
         --default-success-color: #4CAF50;

@@ -1,21 +1,24 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import {CardContent} from '@material-ui/core';
-import {CustomInput, CustomButton, CustonCardHeader} from './Custom.component';
+import { CardContent } from '@material-ui/core';
+import {
+  CustomInput,
+  CustomButton,
+  CustonCardHeader,
+} from './Custom.component';
 import { useSnackbar } from 'notistack';
 import { Messages } from '../services/messages';
-import {Formik } from 'formik';
-import {ConfigValidation} from '../services/validations'
+import { Formik } from 'formik';
+import { ConfigValidation } from '../services/validations';
 import API from '../services/api';
 import styled from 'styled-components';
-import {GetTheme} from '../services/theme';
+import { GetTheme } from '../services/theme';
 
 const CustonDrawerConfig = styled('div')`
-    max-width: 250px;
-`
+  max-width: 250px;
+`;
 
-function ConfigComponent({config, configData, domain}) {
-
+function ConfigComponent({ config, configData, domain }) {
   const history = useHistory();
 
   const { enqueueSnackbar } = useSnackbar();
@@ -37,9 +40,9 @@ function ConfigComponent({config, configData, domain}) {
     header_color,
     text_color,
     link_color,
-    title_color
+    title_color,
   } = config;
-  
+
   const initialValues = {
     mainColor: main_color,
     secondColor: second_color,
@@ -56,9 +59,9 @@ function ConfigComponent({config, configData, domain}) {
     textColor: text_color,
     linkColor: link_color,
     titleColor: title_color,
-  }
-  
-  const handleConfigSubmit = (values) =>{
+  };
+
+  const handleConfigSubmit = (values) => {
     const {
       mainColor,
       secondColor,
@@ -74,7 +77,7 @@ function ConfigComponent({config, configData, domain}) {
       headerColor,
       textColor,
       linkColor,
-      titleColor
+      titleColor,
     } = values;
 
     const colorData = {
@@ -93,162 +96,202 @@ function ConfigComponent({config, configData, domain}) {
       text_color: textColor,
       title_color: titleColor,
       link_color: linkColor,
-    }
+    };
 
     const data = {
-      logo: 'https://jovemnerd.com.br/wp-content/themes/jovem-nerd-v8/assets/images/logo-jovemnerd.png',
+      logo:
+        'https://jovemnerd.com.br/wp-content/themes/jovem-nerd-v8/assets/images/logo-jovemnerd.png',
       domain: domain,
       main_color: '#000',
-      second_color: GetTheme.parseThemeToString(colorData)
-    }
+      second_color: GetTheme.parseThemeToString(colorData),
+    };
 
-    if(window.confirm("Tem certeza que deseja aplicar as alterações? A página será recarregada")){
-      if(configId){
+    if (
+      window.confirm(
+        'Tem certeza que deseja aplicar as alterações? A página será recarregada'
+      )
+    ) {
+      if (configId) {
         data._id = configId;
-        API.put(`/config/${configId}`, data ).then((response) => {
-          history.go(0);
-        }).catch((err) => {
-          enqueueSnackbar(Messages.error.not_config_erro, {variant: 'error'});
-        });
-        
-      }else{
-        API.post(`/config`, data ).then((response) => {
-          history.go(0);
-        }).catch((err) => {
-          enqueueSnackbar(Messages.error.not_config_erro, {variant: 'error'});
-        })
+        API.put(`/config/${configId}`, data)
+          .then((response) => {
+            history.go(0);
+          })
+          .catch((err) => {
+            enqueueSnackbar(Messages.error.not_config_erro, {
+              variant: 'error',
+            });
+          });
+      } else {
+        API.post(`/config`, data)
+          .then((response) => {
+            history.go(0);
+          })
+          .catch((err) => {
+            enqueueSnackbar(Messages.error.not_config_erro, {
+              variant: 'error',
+            });
+          });
       }
     }
-    
-  }
+  };
 
   return (
-      <CustonDrawerConfig>
-        <CardContent>
-            <Formik
-              initialValues={initialValues}
-              validationSchema={ConfigValidation}
-              onSubmit={(values) => handleConfigSubmit(values)}
-            >
-            {(props) => {
-                const { values, touched, errors, handleChange, handleBlur, handleSubmit, handleReset} = props;
+    <CustonDrawerConfig>
+      <CardContent>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={ConfigValidation}
+          onSubmit={(values) => handleConfigSubmit(values)}
+        >
+          {(props) => {
+            const {
+              values,
+              touched,
+              errors,
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              handleReset,
+            } = props;
 
-                return(
-                  <form onSubmit={handleSubmit}>
+            return (
+              <form onSubmit={handleSubmit}>
+                <CustomInput
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  fullWidth
+                  size="small"
+                  label="Menu principal"
+                  type="text"
+                  name="menuColor"
+                  id="menuColor"
+                  helperText={
+                    errors.menuColor && touched.menuColor && errors.menuColor
+                  }
+                  error={errors.menuColor && touched.menuColor}
+                  value={values.menuColor}
+                />
 
-                    <CustomInput
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      fullWidth
-                      size="small"
-                      label="Menu principal"
-                      type="text"
-                      name="menuColor"
-                      id="menuColor"
-                      helperText={(errors.menuColor && touched.menuColor) && errors.menuColor}
-                      error={errors.menuColor && touched.menuColor}
-                      value={values.menuColor}
-                    />
+                <CustomInput
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  fullWidth
+                  size="small"
+                  label="Cor do submenu"
+                  type="text"
+                  name="submenuColor"
+                  id="submenuColor"
+                  helperText={
+                    errors.submenuColor &&
+                    touched.submenuColor &&
+                    errors.submenuColor
+                  }
+                  error={errors.submenuColor && touched.submenuColor}
+                  value={values.submenuColor}
+                />
 
-                    <CustomInput
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      fullWidth
-                      size="small"
-                      label="Cor do submenu"
-                      type="text"
-                      name="submenuColor"
-                      id="submenuColor"
-                      helperText={(errors.submenuColor && touched.submenuColor) && errors.submenuColor}
-                      error={errors.submenuColor && touched.submenuColor}
-                      value={values.submenuColor}
-                    />
+                <CustomInput
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  fullWidth
+                  size="small"
+                  label="Cor do cabeçalho"
+                  type="text"
+                  name="headerColor"
+                  id="headerColor"
+                  helperText={
+                    errors.headerColor &&
+                    touched.headerColor &&
+                    errors.headerColor
+                  }
+                  error={errors.headerColor && touched.headerColor}
+                  value={values.headerColor}
+                />
 
-                    <CustomInput
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      fullWidth
-                      size="small"
-                      label="Cor do cabeçalho"
-                      type="text"
-                      name="headerColor"
-                      id="headerColor"
-                      helperText={(errors.headerColor && touched.headerColor) && errors.headerColor}
-                      error={errors.headerColor && touched.headerColor}
-                      value={values.headerColor}
-                    />
+                <CustomInput
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  fullWidth
+                  size="small"
+                  label="Cor de título"
+                  type="text"
+                  name="titleColor"
+                  id="titleColor"
+                  helperText={
+                    errors.titleColor && touched.titleColor && errors.titleColor
+                  }
+                  error={errors.titleColor && touched.titleColor}
+                  value={values.titleColor}
+                />
 
-                    <CustomInput
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      fullWidth
-                      size="small"
-                      label="Cor de título"
-                      type="text"
-                      name="titleColor"
-                      id="titleColor"
-                      helperText={(errors.titleColor && touched.titleColor) && errors.titleColor}
-                      error={errors.titleColor && touched.titleColor}
-                      value={values.titleColor}
-                    />
+                <CustomInput
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  fullWidth
+                  size="small"
+                  label="Cor de texto"
+                  type="text"
+                  name="textColor"
+                  id="textColor"
+                  helperText={
+                    errors.textColor && touched.textColor && errors.textColor
+                  }
+                  error={errors.textColor && touched.textColor}
+                  value={values.textColor}
+                />
 
-                    <CustomInput
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      fullWidth
-                      size="small"
-                      label="Cor de texto"
-                      type="text"
-                      name="textColor"
-                      id="textColor"
-                      helperText={(errors.textColor && touched.textColor) && errors.textColor}
-                      error={errors.textColor && touched.textColor}
-                      value={values.textColor}
-                    />
+                <CustomInput
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  fullWidth
+                  size="small"
+                  label="Cor de link"
+                  type="text"
+                  name="linkColor"
+                  id="linkColor"
+                  helperText={
+                    errors.linkColor && touched.linkColor && errors.linkColor
+                  }
+                  error={errors.linkColor && touched.linkColor}
+                  value={values.linkColor}
+                />
 
-                    <CustomInput
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      fullWidth
-                      size="small"
-                      label="Cor de link"
-                      type="text"
-                      name="linkColor"
-                      id="linkColor"
-                      helperText={(errors.linkColor && touched.linkColor) && errors.linkColor}
-                      error={errors.linkColor && touched.linkColor}
-                      value={values.linkColor}
-                    />
+                <CustomInput
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  fullWidth
+                  size="small"
+                  label="Cor principal"
+                  type="text"
+                  name="mainColor"
+                  id="mainColor"
+                  helperText={
+                    errors.mainColor && touched.mainColor && errors.mainColor
+                  }
+                  error={errors.mainColor && touched.mainColor}
+                  value={values.mainColor}
+                />
 
-                    <CustomInput
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      fullWidth
-                      size="small"
-                      label="Cor principal"
-                      type="text"
-                      name="mainColor"
-                      id="mainColor"
-                      helperText={(errors.mainColor && touched.mainColor) && errors.mainColor}
-                      error={errors.mainColor && touched.mainColor}
-                      value={values.mainColor}
-                    />
+                <CustomInput
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  fullWidth
+                  size="small"
+                  label="Cor secundária"
+                  type="text"
+                  name="secondColor"
+                  id="secondColor"
+                  helperText={
+                    errors.secondColor &&
+                    touched.secondColor &&
+                    errors.secondColor
+                  }
+                  error={errors.secondColor && touched.secondColor}
+                  value={values.secondColor}
+                />
 
-                    <CustomInput
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        fullWidth
-                        size="small"
-                        label="Cor secundária"
-                        type="text"
-                        name="secondColor"
-                        id="secondColor"
-                        helperText={(errors.secondColor && touched.secondColor) && errors.secondColor}
-                        error={errors.secondColor && touched.secondColor}
-                        value={values.secondColor}
-                    />
-
-                    {/* <CustomInput
+                {/* <CustomInput
                         onChange={handleChange}
                         onBlur={handleBlur}
                         fullWidth
@@ -262,7 +305,7 @@ function ConfigComponent({config, configData, domain}) {
                         value={values.successColor}
                     /> */}
 
-                    {/* <CustomInput
+                {/* <CustomInput
                         onChange={handleChange}
                         onBlur={handleBlur}
                         fullWidth
@@ -276,7 +319,7 @@ function ConfigComponent({config, configData, domain}) {
                         value={values.dangerColor}
                     /> */}
 
-                    {/* <CustomInput
+                {/* <CustomInput
                         onChange={handleChange}
                         onBlur={handleBlur}
                         fullWidth
@@ -290,7 +333,7 @@ function ConfigComponent({config, configData, domain}) {
                         value={values.warningColor}
                     /> */}
 
-                    {/* <CustomInput
+                {/* <CustomInput
                         onChange={handleChange}
                         onBlur={handleBlur}
                         fullWidth
@@ -304,7 +347,7 @@ function ConfigComponent({config, configData, domain}) {
                         value={values.infoColor}
                     /> */}
 
-                    {/* <CustomInput
+                {/* <CustomInput
                         onChange={handleChange}
                         onBlur={handleBlur}
                         fullWidth
@@ -318,7 +361,7 @@ function ConfigComponent({config, configData, domain}) {
                         value={values.inverseColor}
                     /> */}
 
-                    {/* <CustomInput
+                {/* <CustomInput
                         onChange={handleChange}
                         onBlur={handleBlur}
                         fullWidth
@@ -332,7 +375,7 @@ function ConfigComponent({config, configData, domain}) {
                         value={values.darkColor}
                     /> */}
 
-                    {/* <CustomInput
+                {/* <CustomInput
                         onChange={handleChange}
                         onBlur={handleBlur}
                         fullWidth
@@ -345,24 +388,21 @@ function ConfigComponent({config, configData, domain}) {
                         error={errors.lightColor && touched.lightColor}
                         value={values.lightColor}
                     /> */}
-                    
-                    <CustomButton
-                        type="submit"
-                        label={'Salvar'}
-                        bg={'success_background'}
-                        color={'light_color'}
-                        fullwidth
-                        size="small"
-                        size="small"
-                    />
 
-                </form>
-                )
-            }}
-            </Formik>
-        </CardContent>
-      </CustonDrawerConfig>
-          
+                <CustomButton
+                  type="submit"
+                  label={'Salvar'}
+                  bg={'success_background'}
+                  color={'light_color'}
+                  fullwidth
+                  size="small"
+                />
+              </form>
+            );
+          }}
+        </Formik>
+      </CardContent>
+    </CustonDrawerConfig>
   );
 }
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import HeaderComponent from '../../components/Header.component';
-import {Logo} from '../../components/Logo.component';
-import {Grid, CardContent, Card} from '@material-ui/core';
+import { Logo } from '../../components/Logo.component';
+import { Grid, CardContent, Card } from '@material-ui/core';
 
 const Wrapper = styled('div')`
   display: flex;
@@ -30,23 +30,23 @@ const LogoWrapper = styled('div')`
   display: flex;
   justify-content: center;
   padding: 15px 0px;
-  box-shadow: 0px 0px 50px rgba(0,0,0,0.4) inset;
-`
+  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.4) inset;
+`;
 
-function TemplateDefault({children}) {
+function TemplateDefault({ children }) {
   return (
     <Wrapper>
-        <MenuWrapper className="menu_background">
-          <LogoWrapper>
-            <Logo />
-          </LogoWrapper>
-        </MenuWrapper>
-        <MainWrapper>
-          <HeaderComponent />
-          <ContentWrapper className="default_light_background">
-            {children}
-          </ContentWrapper>
-        </MainWrapper>
+      <MenuWrapper className="menu_background">
+        <LogoWrapper>
+          <Logo />
+        </LogoWrapper>
+      </MenuWrapper>
+      <MainWrapper>
+        <HeaderComponent />
+        <ContentWrapper className="default_light_background">
+          {children}
+        </ContentWrapper>
+      </MainWrapper>
     </Wrapper>
   );
 }

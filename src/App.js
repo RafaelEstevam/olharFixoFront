@@ -1,7 +1,12 @@
-import react, {useState, useEffect} from 'react';
-import {Router} from 'react-router-dom';
-import { CircularProgress } from '@material-ui/core/'
-import {GetLocalConfig, GetTheme, GetDefaultTheme, JsonToStringSetLocal} from './services/theme';
+import react, { useState, useEffect } from 'react';
+import { Router } from 'react-router-dom';
+import { CircularProgress } from '@material-ui/core/';
+import {
+  GetLocalConfig,
+  GetTheme,
+  GetDefaultTheme,
+  JsonToStringSetLocal,
+} from './services/theme';
 import { useSnackbar } from 'notistack';
 import { Messages } from './services/messages';
 
@@ -14,7 +19,6 @@ import ThemeContext from './store/ThemeContext';
 import GlobalStyle from './styles/global';
 
 function App() {
-
   const { enqueueSnackbar } = useSnackbar();
 
   const [loaded, setLoaded] = useState(true);
@@ -24,32 +28,41 @@ function App() {
   const [themeStyles, setThemeStyles] = useState(false);
 
   useEffect(() => {
-    const data = {domain: domain};
-    if(!themeContextValue){
-      API.post('/config/get', data ).then((response) => {
-        setThemeContextValue(response.data);
-        setLoaded(false);
-      }).catch((err) => {
-        setLoaded(false);
-        setDefaultTheme(true);
-        enqueueSnackbar(Messages.error.not_config_erro, {variant: 'error'});
-      })
-    }else{
+    const data = { domain: domain };
+    if (!themeContextValue) {
+      API.post('/config/get', data)
+        .then((response) => {
+          setThemeContextValue(response.data);
+          setLoaded(false);
+        })
+        .catch((err) => {
+          setLoaded(false);
+          setDefaultTheme(true);
+          enqueueSnackbar(Messages.error.not_config_erro, { variant: 'error' });
+        });
+    } else {
       setLoaded(false);
     }
-    
-  }, [])
+  }, []);
 
-  return (loaded) ? <CircularProgress />
-  : 
+  return loaded ? (
+    <CircularProgress />
+  ) : (
     <ThemeContext.Provider value={themeContextValue}>
       <Router history={history}>
         <Routes />
-        {(!loaded && !defaultTheme) && <GlobalStyle theme={themeContextValue && GetTheme.parseThemetoJson(themeContextValue.second_color)} />}
-        {(!loaded && defaultTheme) && <GlobalStyle theme={GetDefaultTheme()} />}
+        {!loaded && !defaultTheme && (
+          <GlobalStyle
+            theme={
+              themeContextValue &&
+              GetTheme.parseThemetoJson(themeContextValue.second_color)
+            }
+          />
+        )}
+        {!loaded && defaultTheme && <GlobalStyle theme={GetDefaultTheme()} />}
       </Router>
     </ThemeContext.Provider>
-    
+  );
 }
 
 export default App;
