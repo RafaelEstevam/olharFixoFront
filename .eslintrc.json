@@ -6,8 +6,8 @@
     },
     "extends": [
         "eslint:recommended",
-        "plugin:react/recommended"
-        // "plugin:prettier/recommended"
+        "plugin:react/recommended",
+        "plugin:prettier/recommended"
     ],
     "parserOptions": {
         "ecmaFeatures": {
@@ -22,8 +22,8 @@
     "rules": {
         "react/react-in-jsx-scope": "off",
         "arrow-body-style": "off",
-        // "prefer-arrow-callback": "off",
-        // "prettier/prettier": ["error", {"singleQuote": true, "parser": "flow", "endOfLine":"auto"}],
+        "prefer-arrow-callback": "off",
+        "prettier/prettier": ["error", {"singleQuote": true, "parser": "flow", "endOfLine":"auto"}],
         "react/prop-types": 0,
         "no-unused-vars":"off"
     }
