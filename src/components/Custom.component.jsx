@@ -57,12 +57,12 @@ const CustomStyledButton = styled('button')`
   padding: 12px 15px;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
   cursor: pointer;
-  transition: linear all 0.1s !important;
   width: ${(props) => (props.fullwidth ? '100%' : 'inherit')};
   height: ${(props) => (props.size === 'small' ? '40px' : '56px')};
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: linear all 0.1s !important;
   :hover {
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3),
       0px 0px 100px inset rgba(0, 0, 0, 0.2);
@@ -72,6 +72,15 @@ const CustomStyledButton = styled('button')`
     box-shadow: 0px 0px 10px ${(props) => props.bg},
       0px 0px 100px inset rgba(0, 0, 0, 0.2);
   }
+`;
+
+const CustonStyledIconButton = styled(CustomStyledButton)`
+  border-radius: 1000px;
+  display: flex;
+  align-itens: center;
+  justify-content: center;
+  height: 48px;
+  width: 48px;
 `;
 
 export function CustomInput({
@@ -136,6 +145,32 @@ export function CustomInputValidator({
   );
 }
 
+export function CustomIconButton({
+  type,
+  label,
+  bg,
+  color,
+  fullwidth,
+  size,
+  onClick,
+  disabled,
+  children,
+}) {
+  const custonClass = `${bg} ${color}`;
+  return (
+    <CustonStyledIconButton
+      type={type}
+      fullwidth={fullwidth}
+      className={custonClass}
+      onClick={onClick}
+      size={size}
+      disabled={disabled}
+    >
+      {children}
+    </CustonStyledIconButton>
+  );
+}
+
 export function CustomButton({
   type,
   label,
@@ -162,9 +197,14 @@ export function CustomButton({
   );
 }
 
-export function CustomTypography({ variant, className, label, bold }) {
+export function CustomTypography({ variant, className, label, bold, style }) {
   return (
-    <CustomStyledTypography variant={variant} className={className} bold={bold}>
+    <CustomStyledTypography
+      variant={variant}
+      className={className}
+      bold={bold}
+      style={style}
+    >
       {label}
     </CustomStyledTypography>
   );

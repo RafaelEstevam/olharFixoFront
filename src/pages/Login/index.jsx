@@ -46,7 +46,10 @@ function Login() {
   };
 
   const handleLoginSubmit = (values) => {
-    console.log(values);
+    // console.log(values);
+    API.get('/login').then((response) => {
+      console.log(response);
+    });
   };
 
   const handleSubmit = (values) => {
