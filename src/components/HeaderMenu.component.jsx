@@ -10,13 +10,16 @@ import { CustomIconButton, CustomTypography } from './Custom.component';
 import { Logo } from './Logo.component';
 
 const HeaderWrapper = styled('div')`
+  position: fixed;
   display: flex;
   justify-content: space-between;
   align-items: center;
   box-sizing: border-box;
   padding: 8px 15px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1);
   width: 100%;
+  position: relative;
+  z-index: 1;
 `;
 
 const LoginWrapper = styled('div')`

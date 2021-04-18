@@ -14,7 +14,7 @@ import {
   CustomFormLink,
   CustomBreadcrumb,
   CustomCard,
-  CustonCardHeader,
+  CustomCardHeader,
 } from '../../components/Custom.component';
 import { CustomCarousel } from '../../components/Carousel.component';
 import { useSnackbar } from 'notistack';
@@ -76,7 +76,7 @@ function Config() {
       <Grid container spacing={3}>
         <Grid item md={3} xs={12}>
           <CustomCard>
-            <CustonCardHeader
+            <CustomCardHeader
               boldTitle
               variantTitle="h6"
               variantSubtitle="p"
@@ -91,7 +91,7 @@ function Config() {
         </Grid>
         <Grid item md={9} xs={12}>
           <CustomCard>
-            <CustonCardHeader
+            <CustomCardHeader
               variantTitle="h5"
               variantSubtitle="p"
               title="Configurações"

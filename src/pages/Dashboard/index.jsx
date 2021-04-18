@@ -14,7 +14,7 @@ import {
   CustomFormLink,
   CustomBreadcrumb,
   CustomCard,
-  CustonCardHeader,
+  CustomCardHeader,
 } from '../../components/Custom.component';
 import { CustomCarousel } from '../../components/Carousel.component';
 import { useSnackbar } from 'notistack';

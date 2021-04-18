@@ -21,6 +21,23 @@ export default createGlobalStyle`
         margin: 0px;
     }
 
+    ::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1; 
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      border-radius: 100px;
+      background: #ccc; 
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #999;
+    }
+
     :root {
         --main-color: ${(props) =>
           props.theme?.main_color || defaultTheme.main_color};
@@ -52,6 +69,9 @@ export default createGlobalStyle`
           props.theme?.title_color || defaultTheme.title_color};
         --link-color: ${(props) =>
           props.theme?.link_color || defaultTheme.link_color};
+        --main-light-color: ${(props) =>
+          props.theme?.main_color || defaultTheme.main_color}11;
+        }
         --default-main-color: #2196F3;
         --default-second-color: #9C27B0;
         --default-success-color: #4CAF50;
@@ -60,7 +80,7 @@ export default createGlobalStyle`
         --default-info-color: #00BCD4;
         --default-inverse-color: #FF5722;
         --default-dark-color: #333;
-        --default-light-color: #FFF;
+        --default-light-color: #f1f1f1;
         --default-white-color: #FFF;
         --default-gray-color: #666;
         --default-menu-color: #2196F3;
@@ -71,7 +91,14 @@ export default createGlobalStyle`
         --default-link-color: #2196F3;
     }
 
+    .main_light_background{background-color: var(--main-light-color) !important}
+
     .main_color{color: var(--main-color) !important}
+    .main_icon_color{
+      path{
+        fill: var(--main-color) !important;
+      }
+    }
     .main_background{background-color: var(--main-color) !important}
     
     .second_color{color: var(--second-color) !important}
@@ -141,12 +168,12 @@ export default createGlobalStyle`
     .default_dark_background{background-color: var(--default-dark-color) !important}
 
     .default_light_color{color: var(--default-light-color) !important}
-    .default_light_background{background-color: var(--default-light-color) !important}
+    .default_light_background{background-color: #f8f8f8 !important}
 
-    .default_gray_color{color: var(--default-gray-color) !important}
-    .default_gray_background{background-color: var(--default-gray-color) !important}
+    .default_gray_color{color: #555 !important}
+    .default_gray_background{background-color: #555 !important}
     
-    .default_white_color{color: var(--default-white-color) !important}
+    .default_white_color{color: #fff !important}
     .default_white_background{background-color: var(--default-white-color) !important}
 
     .default_menu_color{color: var(--default-menu-color) !important}

@@ -6,31 +6,26 @@ import { HeaderMenu } from '../../components/HeaderMenu.component';
 import { FooterWrapper } from '../../components/Footer.component';
 import { LoginImage } from '../../components/LoginImage.component';
 import HeaderComponent from '../../components/Header.component';
+import { CustomGrid, CustomTitle } from '../../components/Custom.component';
+
+// const FirstAccessGrid = styled('div')`
+//   max-width: 900px;
+//   margin: 0 auto;
+// `;
+
+const StyledWrapper = styled('div')`
+  @media (min-width: 980px) {
+    max-height: 100vh;
+    overflow: hidden;
+  }
+`;
 
 function TemplateFirstAccess({ children }) {
   return (
-    <div>
+    <StyledWrapper>
       <HeaderMenu />
-      <Grid container>
-        <Grid item sm={12} md={9}>
-          adf
-        </Grid>
-        <Grid item sm={12} md={3}>
-          adf
-        </Grid>
-      </Grid>
-      {/* <MenuWrapper className="menu_background">
-        <LogoWrapper>
-          <Logo />
-        </LogoWrapper>
-      </MenuWrapper>
-      <MainWrapper>
-        <HeaderComponent />
-        <ContentWrapper className="default_light_background">
-          {children}
-        </ContentWrapper>
-      </MainWrapper> */}
-    </div>
+      {children}
+    </StyledWrapper>
   );
 }
 

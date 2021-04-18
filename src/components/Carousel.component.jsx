@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Carousel } from 'react-bootstrap';
 import styled from 'styled-components';
 
-const CustonCarousel = styled(Carousel)`
+const StyledCustomCarousel = styled(Carousel)`
   .carousel-inner {
     max-width: 400px !important;
   }
@@ -16,7 +16,7 @@ const CustomCarouselItem = styled(Carousel.Item)`
 
 export function CustomCarousel({ children, activeIndex }) {
   return (
-    <CustonCarousel
+    <StyledCustomCarousel
       interval={null}
       controls={false}
       indicators={false}
@@ -31,6 +31,6 @@ export function CustomCarousel({ children, activeIndex }) {
       ) : (
         <CustomCarouselItem>{children.props.children}</CustomCarouselItem>
       )}
-    </CustonCarousel>
+    </StyledCustomCarousel>
   );
 }

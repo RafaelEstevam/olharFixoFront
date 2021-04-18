@@ -4,7 +4,7 @@ import { CardContent } from '@material-ui/core';
 import {
   CustomInput,
   CustomButton,
-  CustonCardHeader,
+  CustomCardHeader,
 } from './Custom.component';
 import { useSnackbar } from 'notistack';
 import { Messages } from '../services/messages';
@@ -14,7 +14,7 @@ import API from '../services/api';
 import styled from 'styled-components';
 import { GetTheme } from '../services/theme';
 
-const CustonDrawerConfig = styled('div')`
+const CustomDrawerConfig = styled('div')`
   max-width: 250px;
 `;
 
@@ -137,7 +137,7 @@ function ConfigComponent({ config, configData, domain }) {
   };
 
   return (
-    <CustonDrawerConfig>
+    <CustomDrawerConfig>
       <CardContent>
         <Formik
           initialValues={initialValues}
@@ -402,7 +402,7 @@ function ConfigComponent({ config, configData, domain }) {
           }}
         </Formik>
       </CardContent>
-    </CustonDrawerConfig>
+    </CustomDrawerConfig>
   );
 }
 

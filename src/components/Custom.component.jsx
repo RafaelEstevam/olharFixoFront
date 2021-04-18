@@ -15,6 +15,8 @@ import {
   Card,
   CardContent,
   Divider,
+  Grid,
+  Button,
 } from '@material-ui/core';
 import { GetTheme, GetDefaultTheme } from '../services/theme';
 import { TextValidator } from 'react-material-ui-form-validator';
@@ -27,7 +29,7 @@ const CustomStyledTextField = styled(TextValidator)`
   margin-bottom: 15px;
 `;
 
-const CustonTextField = styled(TextField)`
+const CustomTextField = styled(TextField)`
   margin-bottom: 15px;
 `;
 
@@ -35,7 +37,7 @@ const CustomStyledTypography = styled(Typography)`
   font-weight: ${(props) => props.bold && 'bold'};
 `;
 
-const CustonStyledLink = styled('a')`
+const CustomStyledLink = styled('a')`
   color: ${(props) => props.color && props.color};
   font-weight: bold;
   text-align: center;
@@ -74,7 +76,14 @@ const CustomStyledButton = styled('button')`
   }
 `;
 
-const CustonStyledIconButton = styled(CustomStyledButton)`
+export const CustomGrid = styled(Grid)`
+  // @media (min-width: 980px) {
+  //   max-height: 100vh;
+  //   overflow-y: auto;
+  // }
+`;
+
+const CustomStyledIconButton = styled(CustomStyledButton)`
   border-radius: 1000px;
   display: flex;
   align-itens: center;
@@ -82,6 +91,54 @@ const CustonStyledIconButton = styled(CustomStyledButton)`
   height: 48px;
   width: 48px;
 `;
+
+const StyledCustomTitle = styled('h1')`
+  font-weight: ${(props) => props.fontWeight || '100'};
+  font-size: ${(props) => props.fontSize || '25px'};
+  margin-bottom: ${(props) => props.marginBottom || '10px'};
+  margin-top: ${(props) => props.marginTop || '10px'};
+`;
+
+const StyledCustomParagraph = styled('p')`
+  margin: 0px;
+`;
+
+const StyledFloatButton = styled(Button)`
+  position: fixed;
+  right: 0px;
+  top: 100px;
+  z-index: 10;
+  border-radius: 3px 0px 0px 3px;
+`;
+
+export function CustomTitle({
+  title,
+  fontSize,
+  className,
+  marginBottom,
+  marginTop,
+  fontWeight,
+}) {
+  return (
+    <StyledCustomTitle
+      className={className}
+      marginBottom={marginBottom}
+      fontSize={fontSize}
+      marginTop={marginTop}
+      fontWeight={fontWeight}
+    >
+      {title}
+    </StyledCustomTitle>
+  );
+}
+
+export function CustomParagraph({ label, fontSize, className }) {
+  return (
+    <StyledCustomParagraph className={className} fontSize={fontSize}>
+      {label}
+    </StyledCustomParagraph>
+  );
+}
 
 export function CustomInput({
   onChange,
@@ -100,7 +157,7 @@ export function CustomInput({
   id,
 }) {
   return (
-    <CustonTextField
+    <CustomTextField
       onChange={onChange}
       onBlur={onBlur}
       value={value}
@@ -156,18 +213,18 @@ export function CustomIconButton({
   disabled,
   children,
 }) {
-  const custonClass = `${bg} ${color}`;
+  const customClass = `${bg} ${color}`;
   return (
-    <CustonStyledIconButton
+    <CustomStyledIconButton
       type={type}
       fullwidth={fullwidth}
-      className={custonClass}
+      className={customClass}
       onClick={onClick}
       size={size}
       disabled={disabled}
     >
       {children}
-    </CustonStyledIconButton>
+    </CustomStyledIconButton>
   );
 }
 
@@ -180,20 +237,44 @@ export function CustomButton({
   size,
   onClick,
   disabled,
+  icon,
 }) {
-  const custonClass = `${bg} ${color}`;
+  const customClass = `${bg} ${color}`;
 
   return (
     <CustomStyledButton
       type={type}
       fullwidth={fullwidth}
-      className={custonClass}
+      className={customClass}
       onClick={onClick}
       size={size}
       disabled={disabled}
     >
+      {icon}
       {label}
     </CustomStyledButton>
+  );
+}
+
+export function CustomFloatButton({
+  bg,
+  color,
+  size,
+  onClick,
+  disabled,
+  icon,
+}) {
+  const customClass = `${bg} ${color}`;
+
+  return (
+    <StyledFloatButton
+      className={customClass}
+      onClick={onClick}
+      size={size}
+      disabled={disabled}
+    >
+      {icon}
+    </StyledFloatButton>
   );
 }
 
@@ -212,9 +293,9 @@ export function CustomTypography({ variant, className, label, bold, style }) {
 
 export function CustomFormLink({ onClick, label, color }) {
   return (
-    <CustonStyledLink className={color} onClick={onClick}>
+    <CustomStyledLink className={color} onClick={onClick}>
       {label}
-    </CustonStyledLink>
+    </CustomStyledLink>
   );
 }
 
@@ -235,7 +316,7 @@ export function CustomCard({ children }) {
   return <CustomStyledCard>{children}</CustomStyledCard>;
 }
 
-export function CustonCardHeader({
+export function CustomCardHeader({
   classNameTitle,
   boldTitle,
   boldSubtitle,
