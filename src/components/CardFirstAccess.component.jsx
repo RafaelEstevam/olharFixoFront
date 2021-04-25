@@ -5,6 +5,17 @@ import { CustomTitle } from './Custom.component';
 
 import { Logo } from './Logo.component';
 
+import DonutLargeIcon from '@material-ui/icons/DonutLarge';
+import TrackChangesIcon from '@material-ui/icons/TrackChanges';
+import AssessmentIcon from '@material-ui/icons/Assessment';
+import SendIcon from '@material-ui/icons/Send';
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
+import FormatAlignLeftIcon from '@material-ui/icons/FormatAlignLeft';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import SettingsIcon from '@material-ui/icons/Settings';
+import BuildIcon from '@material-ui/icons/Build';
+import WarningIcon from '@material-ui/icons/Warning';
+
 const StyledCard = styled('div')`
   background: #fff;
   box-shadow: 0px 0px 2px rgba(20, 20, 20, 0.2);
@@ -67,7 +78,7 @@ const DataWrapperItem = styled('div')`
 
 const CardIcon = styled('div')`
   // border: 5px solid #ccc;
-  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2);
+  // box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2);
   padding: 15px;
   border-radius: 1000px;
 `;
@@ -85,11 +96,46 @@ const CardDataItemContent = styled('p')`
   // margin-top: 10px;
 `;
 
-export function CardFirstAccess({ label, icon, onClick, iconClass }) {
+const InlineCardIcon = styled('div')`
+  svg{
+    font-size: 40px;
+  }
+`
+
+export function GetCardIcon(keyword){
+
+  switch(keyword){
+    case 'dashboard':
+      return (<DonutLargeIcon />);
+    case 'tracking':
+      return (<TrackChangesIcon />);
+    case 'reports':
+      return (<AssessmentIcon />);
+    case 'attendance':
+      return (<SendIcon />);
+    case 'register':
+      return (<FormatAlignLeftIcon />);
+    case 'management':
+      return (<AccountBoxIcon />);
+    case 'financial':
+      return (<AttachMoneyIcon />);
+    case 'settings':
+      return (<SettingsIcon />);
+    case 'maintenance':
+      return (<BuildIcon />);
+    case 'accident':
+      return (<WarningIcon/>);
+
+    case 'default':
+      break;
+  }
+}
+
+export function CardFirstAccess({ label, icon, onClick, keyword }) {
   return (
     <StyledCard onClick={onClick}>
       <StyledCardContent>
-        <CardIcon className={iconClass}>{icon}</CardIcon>
+        <CardIcon className={`main_color main_light_background`}>{GetCardIcon(keyword)}</CardIcon>
         <CustomTitle
           fontWeight="400"
           title={label}
@@ -106,7 +152,7 @@ export function CardFirstAccess({ label, icon, onClick, iconClass }) {
 export function CardWarpperData({ title, icon, data }) {
   return (
     <StyledLineCardContent>
-      <div className="main_color">{icon}</div>
+      <InlineCardIcon className="main_color">{icon}</InlineCardIcon>
       <DataWrapper>
         <CustomTitle
           fontWeight="400"

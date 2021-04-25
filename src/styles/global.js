@@ -70,7 +70,7 @@ export default createGlobalStyle`
         --link-color: ${(props) =>
           props.theme?.link_color || defaultTheme.link_color};
         --main-light-color: ${(props) =>
-          props.theme?.main_color || defaultTheme.main_color}11;
+          props.theme?.main_color || defaultTheme.main_color}20;
         }
         --default-main-color: #2196F3;
         --default-second-color: #9C27B0;
@@ -99,6 +99,14 @@ export default createGlobalStyle`
         fill: var(--main-color) !important;
       }
     }
+
+    .main_hover_color:hover{
+      color: var(--link-color) !important;
+      span{
+        color: var(--link-color) !important
+      }
+    }
+
     .main_background{background-color: var(--main-color) !important}
     
     .second_color{color: var(--second-color) !important}

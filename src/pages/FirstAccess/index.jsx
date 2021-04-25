@@ -1,5 +1,7 @@
-import { CardContent, Grid, Drawer } from '@material-ui/core';
+import { CardContent, Grid, Drawer, Collapse, ListItemText, ListItemIcon, ListItem, List, ListSubheader, Divider    } from '@material-ui/core';
 import { useSnackbar } from 'notistack';
+import { useHistory, Link } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
@@ -14,6 +16,7 @@ import {
 import {
   CardFirstAccess,
   CardWarpperData,
+  GetCardIcon
 } from '../../components/CardFirstAccess.component';
 
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
@@ -21,15 +24,23 @@ import DescriptionIcon from '@material-ui/icons/Description';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import DriveEtaIcon from '@material-ui/icons/DriveEta';
 import TimelineIcon from '@material-ui/icons/Timeline';
-
-import DonutLargeIcon from '@material-ui/icons/DonutLarge';
-import TrackChangesIcon from '@material-ui/icons/TrackChanges';
-import AssessmentIcon from '@material-ui/icons/Assessment';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import DraftsIcon from '@material-ui/icons/Drafts';
 import SendIcon from '@material-ui/icons/Send';
-import AccountBoxIcon from '@material-ui/icons/AccountBox';
-import FormatAlignLeftIcon from '@material-ui/icons/FormatAlignLeft';
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
-import SettingsIcon from '@material-ui/icons/Settings';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import StarBorder from '@material-ui/icons/StarBorder';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: '100%',
+    maxWidth: 360,
+    backgroundColor: theme.palette.background.paper,
+  },
+  nested: {
+    paddingLeft: theme.spacing(4),
+  },
+}));
 
 const FirstAccessGrid = styled('div')`
   max-width: 90%;
@@ -65,13 +76,16 @@ const CustomBar = styled('div')`
 `;
 
 const DrawerWrapper = styled('div')`
-  width: 200px;
+  width: 250px;
+  max-height: 100vh;
   height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
 `;
 
 const DrawerTitle = styled('div')`
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   padding: 10px;
   box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.2);
@@ -84,12 +98,93 @@ const DrawerIcon = styled('div')`
   }
 `;
 
+const DrawerMenuWrapper = styled('div')`
+  padding: 0px 0px;
+`
+
+const DrawerItem = styled(ListItem)`
+  color: ${(props) => props.activate ? "#fff" : "#aaa"};
+  transition: linear all 0.2s;
+  span{
+    font-size: 18px;
+  }
+  :hover{
+    color: #fff !important;
+    transition: linear all 0.2s;
+  }
+  svg{
+    fill: #aaa
+  }
+`
+
+const SimpleListItem = styled(ListItem)`
+  color: #888 !important;
+  padding-left: 72px;
+  // transition: linear all 0.2s;
+  :hover{
+    color: #fff !important;
+    // transition: linear all 0.2s;
+  }
+`
+
+function CollapseDrawerItems({item}){
+  const history = useHistory();
+  const [open, setOpen] = useState(false);
+
+  const handleClick = () => {
+    setOpen(!open);
+  };
+
+  const GoToLink = (link) => {
+    history.push(link)
+  }
+
+  return (
+    <>
+      {item?.items && item?.items.length > 0 ? (
+        <DrawerItem button onClick={() => handleClick()} activate={open}>
+          <ListItemIcon>
+            {GetCardIcon(item.keyword)}
+          </ListItemIcon>
+          <ListItemText primary={item.label} />
+          {open ? <ExpandLess /> : <ExpandMore />}
+        </DrawerItem>
+      ) : (
+        <SimpleListItem button onClick={() => GoToLink(item.link)} className="main_hover_color">
+          <ListItemText primary={item.label} />
+        </SimpleListItem>
+      )}
+      
+      <Collapse in={open} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          {item.items?.map((subitem) => (
+            <CollapseDrawerItems key={subitem.label} item={subitem} />
+          ))}
+        </List>
+      </Collapse>
+    </>
+  )
+}
+
+function DrawerItems({items, isSubitem}){
+  return (
+    <List
+      component="nav"
+      aria-labelledby="nested-list-subheader"
+    >
+      {items?.map((item) => (
+        <CollapseDrawerItems key={item.label} item={item} />
+      ))}
+    </List>
+  );
+}
+
 function DrawerContent({ drawerData }) {
   return (
     <DrawerWrapper className="menu_background">
       <DrawerTitle>
         <DrawerIcon className="default_white_color">
-          {drawerData.icon}
+          {GetCardIcon(drawerData.link)}
         </DrawerIcon>
         <CustomTitle
           fontSize="20px"
@@ -98,14 +193,97 @@ function DrawerContent({ drawerData }) {
           title={drawerData.label}
         />
       </DrawerTitle>
+      <DrawerMenuWrapper>
+        <DrawerItems items={drawerData.items} />
+      </DrawerMenuWrapper>
     </DrawerWrapper>
   );
 }
 
+const menuItems = [
+  {
+    label: 'Dashboard',
+    link: 'dashboard',
+    keyword: 'dashboard',
+    items: []
+  },
+  {
+    label: 'Rastreamento',
+    link: 'tracking',
+    keyword: 'tracking',
+    items: []
+  },
+  {
+    label: 'Relatório',
+    link: 'reports',
+    keyword: 'reports',
+    items: [
+      {
+        label: 'Financeiro',
+        keyword: 'financial',
+        items: [
+          {label: 'Relatório de Pedidos', link: 'reports/finances/order-reports'}
+        ]
+      },
+      {
+        label: 'Manutenção',
+        keyword: 'maintenance',
+        items: [
+          {label: 'Relatório de revisões', link: 'reports/maintenance/revision-reports'}
+        ]
+      },
+      {
+        label: 'Rastreamento',
+        keyword: 'tracking',
+        items: [
+          {label: 'Relátório de quilometragem', link: 'mileage-reports'}
+        ]
+      },
+      {
+        label: 'Sinistro',
+        keyword: 'accident',
+        items: [
+          {label: 'Relátório de acidentes', link: 'accident-reports'}
+        ]
+      }
+    ]
+  },
+  {
+    label: 'Atendimento',
+    link: 'attendance',
+    keyword: 'attendance',
+    items: []
+  },
+  {
+    label: 'Cadastro',
+    link: 'register',
+    keyword: 'register',
+    items: []
+  },
+  {
+    label: 'Administrativo',
+    link: 'management',
+    keyword: 'management',
+    items: []
+  },
+  {
+    label: 'Financeiro',
+    link: 'financial',
+    keyword: 'financial',
+    items: []
+  },
+  {
+    label: 'Configurações',
+    link: 'settings',
+    keyword: 'settings',
+    items: []
+  },
+];
+
 function FirstAccessPage() {
   const { enqueueSnackbar } = useSnackbar();
+  const history = useHistory();
 
-  const [title] = useState('Configurações do Sistema');
   const [showData, setShowData] = useState(true);
   const [openDrawer, setOpenDrawer] = useState(false);
   const [drawerData, setDrawerData] = useState('');
@@ -122,89 +300,29 @@ function FirstAccessPage() {
     }
   };
 
-  const handleGetMenu = (data) => {
-    if (openDrawer) {
-      setOpenDrawer(false);
-    } else {
-      setOpenDrawer(true);
-    }
+  const handleGoToLink = (data) => {
+    history.push(data.link)
+  }
 
-    setDrawerData(data);
+  const handleGetMenu = (data) => {
+    if(data.items.length > 0){
+      if (openDrawer) {
+        setOpenDrawer(false);
+      } else {
+        setOpenDrawer(true);
+      }
+      setDrawerData(data);
+    }else{
+      handleGoToLink(data);
+    }
   };
 
   const handleDrawer = (toggle) => {
     setOpenDrawer(toggle);
   };
 
-  const menuItems = [
-    {
-      label: 'Dashboard',
-      link: 'dashboard',
-      onClick: handleGetMenu,
-      openDrawer: false,
-      icon: <DonutLargeIcon />,
-      iconClass: 'main_color',
-    },
-    {
-      label: 'Rastreamento',
-      link: 'tracking',
-      onClick: handleGetMenu,
-      openDrawer: true,
-      icon: <TrackChangesIcon />,
-      iconClass: 'main_color',
-    },
-    {
-      label: 'Relatório',
-      link: 'reports',
-      onClick: handleGetMenu,
-      openDrawer: true,
-      icon: <AssessmentIcon />,
-      iconClass: 'main_color',
-    },
-    {
-      label: 'Atendimento',
-      link: 'attendance',
-      onClick: handleGetMenu,
-      openDrawer: true,
-      icon: <SendIcon />,
-      iconClass: 'main_color',
-    },
-    {
-      label: 'Cadastro',
-      link: 'register',
-      onClick: handleGetMenu,
-      openDrawer: true,
-      icon: <FormatAlignLeftIcon />,
-      iconClass: 'main_color',
-    },
-    {
-      label: 'Administrativo',
-      link: 'management',
-      onClick: handleGetMenu,
-      openDrawer: true,
-      icon: <AccountBoxIcon />,
-      iconClass: 'main_color',
-    },
-    {
-      label: 'Financeiro',
-      link: 'financial',
-      onClick: handleGetMenu,
-      openDrawer: true,
-      icon: <AttachMoneyIcon />,
-      iconClass: 'main_color',
-    },
-    {
-      label: 'Configurações',
-      link: 'settings',
-      onClick: handleGetMenu,
-      openDrawer: true,
-      icon: <SettingsIcon />,
-      iconClass: 'main_color',
-    },
-  ];
-
   return (
-    <Grid container className="default_light_background">
+    <Grid container className="default_light_background" style={{height: '100vh'}}>
       <CustomCardGrid item sm={12} md={!showData ? 9 : 12}>
         {/* <div className="main_background"> */}
         <FirstAccessGrid>
@@ -230,11 +348,9 @@ function FirstAccessPage() {
               {menuItems?.map((item) => (
                 <Grid item xs={12} key={item.label} md={3}>
                   <CardFirstAccess
-                    onClick={() => item.onClick(item)}
-                    icon={item.icon}
-                    iconClass={item.iconClass}
+                    onClick={() => handleGetMenu(item)}
                     label={item.label}
-                    color={'main_color'}
+                    keyword={item.keyword}
                   />
                 </Grid>
               ))}
