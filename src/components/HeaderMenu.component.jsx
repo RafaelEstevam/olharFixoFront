@@ -1,4 +1,5 @@
 import { IconButton, Popover } from '@material-ui/core';
+import {useHistory} from 'react-router-dom';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import PersonIcon from '@material-ui/icons/Person';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
@@ -8,6 +9,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { CustomIconButton, CustomTypography } from './Custom.component';
 import { Logo } from './Logo.component';
+
+import {removeLocalStorage} from '../services/storage'
 
 const HeaderWrapper = styled('div')`
   position: fixed;
@@ -108,8 +111,12 @@ const PopoverMenu = ({ popoverItems }) => {
 };
 
 export function HeaderMenu() {
+
+  const history = useHistory();
+
   const handleClickLink = () => {
-    console.log('teste');
+    removeLocalStorage();
+    history.push('/');
   };
 
   const popoverItems = [

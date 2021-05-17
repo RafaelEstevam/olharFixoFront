@@ -3,7 +3,7 @@ import { Messages } from './messages';
 
 export const LoginValidation = Yup.object().shape({
   email: Yup.string()
-    .email(Messages.error.email_format)
+    // .email(Messages.error.email_format)
     .required(Messages.error.required),
   password: Yup.string().required(Messages.error.required),
 });

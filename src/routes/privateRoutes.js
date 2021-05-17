@@ -4,6 +4,7 @@ import AuthTemplate from '../templates/auth';
 import DefaultTemplate from '../templates/default';
 import ConfigTemplate from '../templates/config';
 import FirstAccessTemplate from '../templates/firstAccess';
+import {getLocalStorageToken} from  '../services/storage';
 
 export default function PrivateRoute({
   component: Component,
@@ -12,7 +13,8 @@ export default function PrivateRoute({
   isFirstAccess = false,
   ...attrs
 }) {
-  const signed = true;
+  
+  const signed = getLocalStorageToken();
 
   if (!signed && isPrivate) {
     return <Redirect to="/" />;

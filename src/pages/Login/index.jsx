@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Typography, Button, TextField } from '@material-ui/core';
+import {useHistory} from 'react-router-dom';
 import { CustomInput, CustomButton } from '../../components/Custom.component';
 import {
   CustomTypography,
@@ -10,12 +11,14 @@ import { useSnackbar } from 'notistack';
 import { Messages } from '../../services/messages';
 import { Logo } from '../../components/Logo.component';
 import { Formik } from 'formik';
+
+import axios from 'axios';
+
 import {
   LoginValidation,
   FirsAccessValidation,
 } from '../../services/validations';
 
-import API from '../../services/api';
 import styled from 'styled-components';
 
 const LoginTitleWrapper = styled('div')`
@@ -28,8 +31,10 @@ const LoginTitleWrapper = styled('div')`
 function Login() {
   const { enqueueSnackbar } = useSnackbar();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const history = useHistory();
+
+  const [email, setEmail] = useState('MIRU000053');
+  const [password, setPassword] = useState('fW1YZm7UUuA=');
   const [doc] = useState('');
   const [username] = useState('');
   const [step, setStep] = useState(0);
@@ -46,10 +51,22 @@ function Login() {
   };
 
   const handleLoginSubmit = (values) => {
-    // console.log(values);
-    API.get('/login').then((response) => {
-      console.log(response);
-    });
+
+    const headers = {
+      'headers': {
+        'clientLicensedId': 53,
+        'userLoginId': values.email,
+        'pass': values.password,
+        'systemWithVersion': 'OFV2'
+      }
+    }
+
+    axios.get('http://auth.mirus.com.br/api/v1/Token/Auth', headers).then((response) => {
+      localStorage.setItem('token', response.data.result.tokenCode);
+      history.push('/first-access');
+    }).catch((err) => {
+      enqueueSnackbar(Messages.error.login_failed, { variant: 'error' });
+    })
   };
 
   const handleSubmit = (values) => {
@@ -101,8 +118,8 @@ function Login() {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     fullWidth
-                    label="E-mail"
-                    type="email"
+                    label="Login"
+                    type="text"
                     size="small"
                     name="email"
                     id="email"
