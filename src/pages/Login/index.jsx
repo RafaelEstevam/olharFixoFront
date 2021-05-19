@@ -51,7 +51,6 @@ function Login() {
   };
 
   const handleLoginSubmit = (values) => {
-
     const headers = {
       'headers': {
         'clientLicensedId': 53,
@@ -60,8 +59,7 @@ function Login() {
         'systemWithVersion': 'OFV2'
       }
     }
-
-    axios.get('http://auth.mirus.com.br/api/v1/Token/Auth', headers).then((response) => {
+    axios.get(`${process.env.REACT_APP_MIRUS_AUTH}/api/v1/Token/Auth`, headers).then((response) => {
       localStorage.setItem('token', response.data.result.tokenCode);
       history.push('/first-access');
     }).catch((err) => {

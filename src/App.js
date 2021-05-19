@@ -25,14 +25,26 @@ function App() {
   const [domain] = useState(window.location.origin);
   const [defaultTheme, setDefaultTheme] = useState(false);
   const [themeContextValue, setThemeContextValue] = useState(undefined);
+  const [clientContext, setClientContext] = useState(undefined);
   const [themeStyles, setThemeStyles] = useState(false);
 
   useEffect(() => {
     const data = { domain: domain };
+
+    const headers = {
+      'headers': {
+        'domainName': 'ofv2.mirus.com.br'
+      }
+    }
+
     if (!themeContextValue) {
-      API.post('/config/get', data)
+      API.get('/api/v1/UserLogin/Domain', headers)
         .then((response) => {
-          setThemeContextValue(response.data);
+
+          // TO DO pegar configurações do licenciado
+
+          // setThemeContextValue(response.data.result);
+          setDefaultTheme(true);
           setLoaded(false);
         })
         .catch((err) => {

@@ -24,7 +24,7 @@ export function CustomCarousel({ children, activeIndex }) {
     >
       {children.length > 0 ? (
         children?.map((item, index) => (
-          <CustomCarouselItem key={item.props.children}>
+          <CustomCarouselItem key={index}>
             {item.props.children}
           </CustomCarouselItem>
         ))

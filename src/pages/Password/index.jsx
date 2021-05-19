@@ -18,11 +18,22 @@ const LoginTitleWrapper = styled('div')`
 `;
 
 function Login() {
-  const [password, setPassword] = useState('');
-  const [confPassword, setConfPassword] = useState('');
+  const { enqueueSnackbar } = useSnackbar();
+  const [clientLicensedId] = useState(53);
+  const [document] = useState('');
 
   const handleLoginSubmit = (values) => {
-    console.log(values);
+    const headers = {
+      'headers': {
+        'clientLicensedId': values.clientLicensedId,
+        'document': values.document
+      }
+    }
+    API.get(`/api/v1/UserLogin/RecoveryPass`, headers).then((response) => {
+      console.log(response.data.result.message);
+    }).catch((err) => {
+      enqueueSnackbar(Messages.error.login_failed, { variant: 'error' });
+    })
   };
 
   return (
@@ -34,7 +45,7 @@ function Login() {
       <CustomCarousel activeIndex={0}>
         <div>
           <Formik
-            initialValues={{ password: password, confPassword: confPassword }}
+            initialValues={{ clientLicensedId: clientLicensedId, document: document }}
             validationSchema={RecoveryPass}
             onSubmit={(values) => handleLoginSubmit(values)}
           >
@@ -55,40 +66,40 @@ function Login() {
                     align="center"
                     className="default_gray_color"
                   >
-                    Alteração de senha:
+                    Recuperação de senha:
                   </Typography>
                   <CustomInput
                     onChange={handleChange}
                     onBlur={handleBlur}
                     fullWidth
-                    label="Senha"
-                    type="password"
+                    label="ID do licenciado"
+                    type="text"
                     size="small"
-                    name="password"
-                    id="password"
+                    name="clientLicensedId"
+                    id="clientLicensedId"
                     helperText={
-                      errors.password && touched.password && errors.password
+                      errors.clientLicensedId && touched.clientLicensedId && errors.clientLicensedId
                     }
-                    error={errors.password && touched.password}
-                    value={values.password}
+                    error={errors.clientLicensedId && touched.clientLicensedId}
+                    value={values.clientLicensedId}
                   />
 
                   <CustomInput
                     onChange={handleChange}
                     onBlur={handleBlur}
                     fullWidth
-                    label="Confirme a senha"
-                    type="password"
+                    label="CPF/CNPJ"
+                    type="text"
                     size="small"
-                    name="confPassword"
-                    id="confPassword"
+                    name="document"
+                    id="document"
                     helperText={
-                      errors.confPassword &&
-                      errors.confPassword &&
-                      errors.confPassword
+                      errors.document &&
+                      errors.document &&
+                      errors.document
                     }
-                    error={errors.confPassword && touched.confPassword}
-                    value={values.confPassword}
+                    error={errors.document && touched.document}
+                    value={values.document}
                   />
 
                   <CustomButton
